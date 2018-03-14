@@ -4,6 +4,8 @@ import * as L from 'leaflet';   // import all components of leaflet and not just
                                 // exported 'namespace'
 // remember to put the access tokens into the productions enviroment when deploying
 import { environment } from 'environments/environment';
+import * as fromModels from '../models';
+import { Overlay } from '../models';
 
 
 @Component({
@@ -14,6 +16,7 @@ import { environment } from 'environments/environment';
 export class MapComponent implements OnInit {
   private map: L.Map;
   private basemaps: L.TileLayer[];
+  private layers: fromModels.Overlay[];
 
   /* TODO: utilize MapService to fetch shape files */
   constructor(private mapService: MapService) {
@@ -34,6 +37,8 @@ export class MapComponent implements OnInit {
         attribution: '© <a href="https://www.mapbox.com/map-feedback/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       }),
     ]
+
+    this.layers = [];
   }
 
   ngOnInit() {
@@ -43,13 +48,32 @@ export class MapComponent implements OnInit {
     });
 
     this.basemaps[0].addTo(this.map);
+
+    let sample: fromModels.Overlay = {
+      id: '1',
+      name: 'Balogo',
+      type: 'something',
+      data: [1,2,3,4]
+    }
+
+    let sample2: fromModels.Overlay = {
+      id: '1',
+      name: 'Balogogo',
+      type: 'something',
+      data: [1,2,3,4]
+    }
+
+    this.addOverLay(sample);
+    this.addOverLay(sample2);
   }
 
-  private addLayer(layer: L.TileLayer[]): void {
+  private addBaseLayer(layer: L.TileLayer[]): void {
     this.map.removeLayer(layer['old']);
 
     layer['new'].addTo(this.map);
   }
 
-
+  private addOverLay(overlay: Overlay): void {
+    this.layers = [...this.layers, overlay];
+  }
 }

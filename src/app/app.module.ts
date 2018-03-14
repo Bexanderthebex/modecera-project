@@ -8,14 +8,17 @@ import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
 import { MapService } from './services/map.service';
 import { BaseMapChooserComponent } from './map/base-map-chooser/base-map-chooser.component';
+import { OverlayControlComponent } from './map/overlay-control/overlay-control.component';
 import { OverlayChooserComponent } from './map/overlay-chooser/overlay-chooser.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     MapComponent,
     BaseMapChooserComponent,
-    OverlayChooserComponent
+    OverlayControlComponent,
+    OverlayChooserComponent,
   ],
   imports: [
     BrowserModule,

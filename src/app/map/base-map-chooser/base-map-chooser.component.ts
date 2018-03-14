@@ -18,7 +18,7 @@ export class BaseMapChooserComponent implements OnInit {
   }
 
   ngOnInit() {
-    /*don't put assignment statements when data is coming from a parent component*/    
+    /*don't put assignment statements in the constructor when data is coming from a parent component*/    
     this.selectedLayer = this.basemaps[0];      
   }
 
