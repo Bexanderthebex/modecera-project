@@ -1,0 +1,12 @@
+<div style="height: 93vh;" id="map">
+    <app-base-map-chooser 
+        [basemaps]=basemaps
+        (layer)="addLayer($event)"
+        style="position:absolute; z-index: 1000; top: 10px; right: 10px;">
+    </app-base-map-chooser>
+    <app-overlay-chooser 
+        class="mdl-layout--large-screen-only"
+        style="position:absolute; z-index: 1000;">
+
+    </app-overlay-chooser>
+</div>

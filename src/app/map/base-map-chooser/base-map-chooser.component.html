@@ -1,0 +1,11 @@
+<button id="demo-menu-lower-right" class="mdl-button mdl-button--raised 
+    mdl-js-button mdl-js-ripple-effect mdl-color--white">
+    {{selectedLayer.options.name}}<i class="material-icons mysize">layers</i>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" 
+    data-mdl-for="demo-menu-lower-right">
+    <li class="mdl-menu__item" *ngFor="let basemap of basemaps"
+      (click)="changeLayer(basemap)">
+      {{basemap.options.name}}
+    </li>
+</ul>
