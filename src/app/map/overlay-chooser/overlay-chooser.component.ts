@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import * as fromModels from '../../models';
 
 @Component({
   selector: 'app-overlay-chooser',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./overlay-chooser.component.css']
 })
 export class OverlayChooserComponent implements OnInit {
+  @Output() overlayLayers: 
+      EventEmitter<fromModels.Overlay[]> = new EventEmitter<fromModels.Overlay[]>();
 
   constructor() { }
 

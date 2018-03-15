@@ -1,0 +1,15 @@
+<div class="mdl-list__item" 
+    style="background-color: white; border-bottom: 1.5px solid #0d7700;
+            font-size: 18px;">
+    {{componentName}}
+    <!-- TODO: Move the icon to the farthest right aligned -->
+    <button class="mdl-button mdl-js-button mdl-button--icon" (click)="clickShow()">
+        <i class="material-icons">keyboard_arrow_down</i>
+    </button>
+
+</div>
+<app-overlay-control *ngFor="let layer of overlay.value"
+    [hidden]="!showChild()"
+    [layer]="layer"
+    class="mdl-list__item">
+</app-overlay-control>

@@ -1,13 +1,3 @@
-<div class="mdl-list__item" 
-    style="background-color: white; border-bottom: 1px solid #0d7700;
-          font-size: 18px;">
-  {{layer.name}}
-  <!-- TODO: Move the icon to the farthest right aligned -->
-  <button [attr.id]="id" class="mdl-button mdl-js-button mdl-button--icon"
-      (click)="show = !show">
-    <i class="material-icons">keyboard_arrow_down</i>
-  </button>
-  <div *ngIf=show>
-      it works!
-  </div>
+<div>
+    {{layer.name}}
 </div>

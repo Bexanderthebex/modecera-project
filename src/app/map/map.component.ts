@@ -11,12 +11,12 @@ import { Overlay } from '../models';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css']
+  styleUrls: ['./map.component.css'],
 })
 export class MapComponent implements OnInit {
   private map: L.Map;
   private basemaps: L.TileLayer[];
-  private layers: fromModels.Overlay[];
+  private layers: {[key: string]: fromModels.Overlay[]};
 
   /* TODO: utilize MapService to fetch shape files */
   constructor(private mapService: MapService) {
@@ -38,7 +38,7 @@ export class MapComponent implements OnInit {
       }),
     ]
 
-    this.layers = [];
+    this.layers = {};
   }
 
   ngOnInit() {
@@ -63,8 +63,18 @@ export class MapComponent implements OnInit {
       data: [1,2,3,4]
     }
 
-    this.addOverLay(sample);
-    this.addOverLay(sample2);
+    let sample3: fromModels.Overlay = {
+      id: '1',
+      name: 'fuckme',
+      type: 'something new',
+      data: [1,2,3,4,5]
+    }
+
+    this.layers = {
+      ...this.layers,
+      'shapefiles': [sample, sample2],
+      'random': [sample3]
+    }
   }
 
   private addBaseLayer(layer: L.TileLayer[]): void {
@@ -73,7 +83,10 @@ export class MapComponent implements OnInit {
     layer['new'].addTo(this.map);
   }
 
-  private addOverLay(overlay: Overlay): void {
-    this.layers = [...this.layers, overlay];
-  }
+  // TODO: try to construct a datastructure that fits a parameter
+  // this exposes a function for the child component overlay-chooser to use 
+  // for the emit event
+  // private addOverlay(overlay: {[key: string]: fromModels.Overlay[]}) {
+  //   this.layers = {...this.layers, overlay}
+  // }
 }

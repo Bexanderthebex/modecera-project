@@ -8,8 +8,9 @@
                 height: 400px; width: 300px; background-color: white; 
                 z-index: 1000;"
          class="mdl-list">
-        <app-overlay-control *ngFor="let layer of layers"
-            [layer]=layer>
-        </app-overlay-control>
+        <!-- TODO: create a pipe that will go over the js object -->
+        <app-overlay-parent *ngFor="let layer of layers | overlaypipe"
+            [overlay]=layer>
+        </app-overlay-parent>
     </div>
 </div>
