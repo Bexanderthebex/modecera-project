@@ -10,7 +10,8 @@
          class="mdl-list">
         <!-- TODO: create a pipe that will go over the js object -->
         <app-overlay-parent *ngFor="let layer of layers | overlaypipe"
-            [overlay]=layer>
+            [overlay]=layer
+            (layerEmitter)="addOverlay($event)">
         </app-overlay-parent>
     </div>
 </div>

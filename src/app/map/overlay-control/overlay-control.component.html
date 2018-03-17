@@ -1,3 +1,15 @@
-<div>
-    {{layer.name}}
+<div class="mdl-list__item">
+    <span class="mdl-list__item-primary-content">
+        <span>{{layer.name}}</span>
+    </span>
+    <span class="mdl-list__item-secondary-action">
+        <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" 
+            [for]=layer.name>
+            <input type="checkbox" 
+                [id]=layer.name 
+                class="mdl-switch__input"
+                (click)="emitLayer()"/>
+        </label>
+    </span>
 </div>
+<hr>

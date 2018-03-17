@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import * as fromModels from '../../models';
 
 @Component({
@@ -7,7 +7,11 @@ import * as fromModels from '../../models';
   styleUrls: ['./overlay-parent.component.css']
 })
 export class OverlayParentComponent implements OnInit {
-  @Input() overlay: any;
+  @Input() 
+  overlay: any;
+  @Output() 
+  layerEmitter: EventEmitter<fromModels.OverlayAction> 
+      = new EventEmitter<fromModels.OverlayAction>();
   private componentName: string;
   private show: boolean;
 
@@ -25,5 +29,9 @@ export class OverlayParentComponent implements OnInit {
 
   private showChild(): boolean {
     return this.show;
+  }
+
+  emitLayer(event: fromModels.OverlayAction) {
+    this.layerEmitter.emit(event);
   }
 }

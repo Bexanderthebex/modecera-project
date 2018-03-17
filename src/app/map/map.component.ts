@@ -83,6 +83,10 @@ export class MapComponent implements OnInit {
     layer['new'].addTo(this.map);
   }
 
+  private addOverlay(overlay: fromModels.OverlayAction): void {
+    console.log(overlay);
+  }
+
   // TODO: try to construct a datastructure that fits a parameter
   // this exposes a function for the child component overlay-chooser to use 
   // for the emit event
