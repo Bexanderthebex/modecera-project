@@ -1,6 +1,13 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { 
+  Component, 
+  OnInit, 
+  Input, 
+  Output, 
+  EventEmitter, 
+  OnChanges 
+} from '@angular/core';
 import * as L from 'leaflet';
-import { environment } from 'environments/environment';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-base-map-chooser',
@@ -17,9 +24,11 @@ export class BaseMapChooserComponent implements OnInit {
 
   }
 
-  ngOnInit() {
-    /*don't put assignment statements in the constructor when data is coming from a parent component*/    
-    this.selectedLayer = this.basemaps[0];      
+  ngOnInit() { }
+
+  ngOnChanges() {
+    /*don't put assignment statements in the constructor when data is coming from a parent component*/
+    this.selectedLayer = this.basemaps[0];
   }
 
   changeLayer(layer: L.TileLayer): void {
