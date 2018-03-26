@@ -3,4 +3,5 @@ export interface Overlay {
     name: string;
     type: string;
     link: string;
+    data?: any;
 }

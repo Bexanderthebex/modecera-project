@@ -11,7 +11,7 @@
         <!-- TODO: create a pipe that will go over the js object -->
         <app-overlay-parent *ngFor="let layer of layers | overlaypipe"
             [overlay]="layer"
-            (layerEmitter)="addOverlay($event)">
+            (layerEmitter)="overlayHandler($event)">
         </app-overlay-parent>
     </div>
     <app-overlay-chooser

@@ -20,14 +20,14 @@ export class OverlayChooserComponent implements OnInit {
   layers$: { [key: string]: fromModels.Overlay[] };
 
   constructor(private mapservice: MapService) {
-    let sample1: Overlay = {
-      id: '1',
-      name: 'Balogo',
-      type: 'L.GeoJSON',
-      link: 'blah blah blah'
-    }
-    let sample2: Overlay = { id: "1", name: "Balogo", type: "L.GeoJSON", link: "blah blah blah" };
-    let sample3: Overlay = { id: "1", name: "Balogo", type: "L.GeoJSON", link: "blah blah blah" };
+    let sample1: Overlay = { 
+      id: "1",
+      name: "Aborlan", 
+      type: "L.GeoJSON", 
+      link: "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Aborlan.geojson?alt=media" 
+    };
+    let sample2: Overlay = { id: "1", name: "Balogo", type: "L.GeoJSON", link: "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Balogo.geojson?alt=media" };
+    let sample3: Overlay = { id: "1", name: "Carranglan", type: "L.GeoJSON", link: "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Carranglan.geojson?alt=media" };
 
     this.layers$ = {
       'watersheds': [sample1, sample2, sample3]

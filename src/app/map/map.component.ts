@@ -68,6 +68,22 @@ export class MapComponent implements OnInit {
     layer["new"].addTo(this.map);
   }
 
+  private overlayHandler(overlay: fromModels.OverlayAction) {
+    var myStyle = { color: "#ff7800", weight: 5, opacity: 0.65 };
+
+    if(overlay.action == fromModels.ADD) {
+      L.geoJSON(overlay.overlay.data, {
+        style: function() {
+          return myStyle;
+        }
+      }).addTo(this.map);
+    } else {
+      console.log(`received removed`);
+    }
+
+    console.log(this.map);
+  }
+
   private addToOverlayStorage(overlay: {
     [key: string]: fromModels.Overlay[];
   }): void {
