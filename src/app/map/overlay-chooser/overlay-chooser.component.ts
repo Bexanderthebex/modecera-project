@@ -3,7 +3,6 @@ import * as fromModels from '../../models';
 import * as L from "leaflet";
 import { MapService } from '../../services/map.service';
 import { Observable } from 'rxjs/Observable';
-import { Overlay } from '../../models';
 
 @Component({
   selector: "app-overlay-chooser",
@@ -13,25 +12,38 @@ import { Overlay } from '../../models';
 export class OverlayChooserComponent implements OnInit {
   @Output()
   overlayLayers: EventEmitter<{
-    [key: string]: fromModels.Overlay[];
-  }> = new EventEmitter<{ 
-    [key: string]: fromModels.Overlay[] 
+    [key: string]: fromModels.OverlayFactoryPattern.Overlay[];
+  }> = new EventEmitter<{
+    [key: string]: fromModels.OverlayFactoryPattern.Overlay[];
   }>();
-  layers$: { [key: string]: fromModels.Overlay[] };
+  layers$: { [key: string]: fromModels.OverlayFactoryPattern.Overlay[] };
 
   constructor(private mapservice: MapService) {
-    let sample1: Overlay = { 
+    let sample1: fromModels.OverlayFactoryPattern.Overlay = {
       id: "1",
-      name: "Aborlan", 
-      type: "L.GeoJSON", 
-      link: "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Aborlan.geojson?alt=media" 
+      name: "Aborlan",
+      type: "L.GeoJSON",
+      link:
+        "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Aborlan.geojson?alt=media"
     };
-    let sample2: Overlay = { id: "1", name: "Balogo", type: "L.GeoJSON", link: "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Balogo.geojson?alt=media" };
-    let sample3: Overlay = { id: "1", name: "Carranglan", type: "L.GeoJSON", link: "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Carranglan.geojson?alt=media" };
+    let sample2: fromModels.OverlayFactoryPattern.Overlay = {
+      id: "1",
+      name: "Balogo",
+      type: "L.GeoJSON",
+      link:
+        "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Balogo.geojson?alt=media"
+    };
+    let sample3: fromModels.OverlayFactoryPattern.Overlay = {
+      id: "1",
+      name: "Carranglan",
+      type: "L.GeoJSON",
+      link:
+        "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Carranglan.geojson?alt=media"
+    };
 
     this.layers$ = {
-      'watersheds': [sample1, sample2, sample3]
-    }
+      watersheds: [sample1, sample2, sample3]
+    };
   }
 
   ngOnInit() {

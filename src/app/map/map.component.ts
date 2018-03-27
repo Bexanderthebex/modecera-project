@@ -5,8 +5,6 @@ import * as L from 'leaflet';   // import all components of leaflet and not just
 // remember to put the access tokens into the productions enviroment when deploying
 import { environment } from '../../environments/environment';
 import * as fromModels from '../models';
-import { Overlay } from '../models';
-
 
 @Component({
   selector: "app-map",
@@ -16,7 +14,7 @@ import { Overlay } from '../models';
 export class MapComponent implements OnInit {
   private map: L.Map;
   private basemaps: L.TileLayer[];
-  private layers: { [key: string]: fromModels.Overlay[] }; //the key groups the overlays
+  private layers: { [key: string]: fromModels.OverlayFactoryPattern.Overlay[] }; //the key groups the overlays
 
   /* TODO: utilize MapService to fetch shape files */
   constructor(private mapService: MapService) {
@@ -81,7 +79,7 @@ export class MapComponent implements OnInit {
   }
 
   private addToOverlayStorage(overlay: {
-    [key: string]: fromModels.Overlay[];
+    [key: string]: fromModels.OverlayFactoryPattern.Overlay[];
   }): void {
     this.layers = overlay;
   }

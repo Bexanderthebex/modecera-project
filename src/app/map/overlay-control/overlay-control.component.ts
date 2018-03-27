@@ -4,23 +4,25 @@ import {
   Input, 
   EventEmitter, 
   Output,
-  OnChanges 
+  OnChanges,
 } from '@angular/core';
 import * as fromModels from '../../models';
 import * as L from "leaflet"; 
 import { MapService } from '../../services/map.service';
+import { OverlayFactoryPattern } from '../../models';
 
 @Component({
   selector: 'app-overlay-control',
   templateUrl: './overlay-control.component.html',
   styleUrls: ['./overlay-control.component.css']
 })
-export class OverlayControlComponent implements OnInit, OnChanges {
-  @Input() layer: fromModels.Overlay;
+export class OverlayControlComponent implements OnInit, OnChanges{
+  @Input() layer: fromModels.OverlayFactoryPattern.Overlay;
   @Output() 
   layerEmitter: EventEmitter<fromModels.OverlayAction> 
       = new EventEmitter<fromModels.OverlayAction>();
   private show: boolean;
+  private layerObject: any;
 
   constructor(private mapService: MapService) {
     this.show = false;
@@ -31,7 +33,8 @@ export class OverlayControlComponent implements OnInit, OnChanges {
   ngOnChanges() {
     this.mapService.getTileLayer(this.layer.link).subscribe(
       (data: any) => {
-        this.layer.data = L.geoJSON(data);
+        this.layerObject = OverlayFactoryPattern.DataFactory.createOverlay(this.layer.type);
+        this.layer.data = this.layerObject.create(data);
       }
     )
   }
