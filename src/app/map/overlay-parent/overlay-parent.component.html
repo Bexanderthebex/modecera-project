@@ -1,18 +1,21 @@
-<div class="mdl-list__item" 
-    style="background-color: white; border-bottom: 1.5px solid #0d7700;
-            font-size: 18px;">
+<button class="layergroup-button mdl-button mdl-js-button mdl-list__item">
     <span class="mdl-list__item-primary-content">
         {{componentName}}
     </span>
-    <span class="mdl-list__item-secondary-action">
-        <button class="mdl-button mdl-js-button mdl-button--icon" [hidden]="showChild()" (click)="clickShow()">
-            <i class="material-icons">keyboard_arrow_down</i>
-        </button>
-        <button class="mdl-button mdl-js-button mdl-button--icon" [hidden]="!showChild()" (click)="clickShow()">
-            <i class="material-icons">keyboard_arrow_up</i>
-        </button>
+    <span class="mdl-list__item-secondary-action"
+            style="position: absolute; right: 10px;">
+        <i class="material-icons"
+            [hidden]="showChild()" 
+            (click)="clickShow()">
+            arrow_drop_down
+        </i>
+        <i class="material-icons" 
+            [hidden]="!showChild()" 
+            (click)="clickShow()">
+            arrow_drop_up
+        </i>
     </span>
-</div>
+</button>
 <app-overlay-control *ngFor="let layer of overlay.value"
     [hidden]="!showChild()"
     [layer]="layer"

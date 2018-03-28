@@ -1,3 +1,16 @@
 i.material-icons {
     font-size: 2rem;
 }
+
+.layergroup-button {
+    width: 300px;
+    border-bottom: 2px solid teal;
+}
+
+.mdl-button:active {
+    background-color: white;
+}
+
+.mdl-button:hover {
+    background-color: white;
+}

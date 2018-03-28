@@ -1,15 +1,48 @@
 <div class="mdl-list__item">
     <span class="mdl-list__item-primary-content">
-        <span>{{layer.name}}</span>
+        <span style="margin-right: 15px;">
+            <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" [for]=layer.name>
+                <input type="checkbox" 
+                    [id]=layer.name 
+                    class="mdl-switch__input" 
+                    (click)="emitLayer()"
+                />
+            </label>
+        </span>
+        <span syle="font-size: 15px;">{{layer.name}}</span>
     </span>
     <span class="mdl-list__item-secondary-action">
-        <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" 
-            [for]=layer.name>
-            <input type="checkbox" 
-                [id]=layer.name 
-                class="mdl-switch__input"
-                (click)="emitLayer()"/>
-        </label>
+        <button 
+            class="mdl-button mdl-js-button mdl-button--icon 
+                   mdl-button--colored mdl-color-text--teal"
+            id="explore-layer-options-button">
+            <i class="material-icons md-36"
+               (click)="explore = !explore"
+            >
+                explore
+            </i>
+        </button>
+        <div class="mdl-tooltip" 
+             data-mdl-for="explore-layer-options-button">
+            Explore layer options
+        </div>
     </span>
+</div>
+
+<div class="mdl-list_item" [hidden]="!explore">
+    <span class="mdl-list__item-primary-content">
+        <span style="font-size: 15px; margin-left: 20px;">Layer otions: </span>
+        <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored
+                            mdl-color-text--teal explore-buttons" id="go-to-layer">
+            <i class="material-icons">near_me</i>
+        </button>
+        <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored
+                            mdl-color-text--teal explore-buttons" id="edit-layer">
+            <i class="material-icons">mode_edit</i>
+        </button>
+    </span>
+
+    <div class="mdl-tooltip" data-mdl-for="go-to-layer">Go to layer</div>
+    <div class="mdl-tooltip" data-mdl-for="edit-layer">Edit layer</div>
 </div>
 <hr>

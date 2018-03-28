@@ -22,10 +22,12 @@ export class OverlayControlComponent implements OnInit, OnChanges{
   layerEmitter: EventEmitter<fromModels.OverlayAction> 
       = new EventEmitter<fromModels.OverlayAction>();
   private show: boolean;
+  private explore: boolean;
   private layerObject: any;
 
   constructor(private mapService: MapService) {
     this.show = false;
+    this.explore = false;
   }
 
   ngOnInit() { }
