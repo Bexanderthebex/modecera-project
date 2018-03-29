@@ -21,6 +21,9 @@ export class OverlayControlComponent implements OnInit, OnChanges{
   @Output() 
   layerEmitter: EventEmitter<fromModels.OverlayAction> 
       = new EventEmitter<fromModels.OverlayAction>();
+  @Output()
+  boundsEmitter: EventEmitter<any>
+      = new EventEmitter<any>();
   private show: boolean;
   private explore: boolean;
   private layerObject: any;
@@ -63,4 +66,10 @@ export class OverlayControlComponent implements OnInit, OnChanges{
 
     this.layerEmitter.emit(overlayAction);
   }
+
+  private emitLayerBounds(): void {
+    console.log('triggered');
+    this.boundsEmitter.emit(this.layer.data.getBounds());
+  }
+
 }

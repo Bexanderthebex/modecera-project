@@ -34,7 +34,10 @@
         <span style="font-size: 15px; margin-left: 20px;">Layer otions: </span>
         <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored
                             mdl-color-text--teal explore-buttons" id="go-to-layer">
-            <i class="material-icons">near_me</i>
+            <i class="material-icons"
+               (click)="emitLayerBounds()">
+                near_me
+            </i>
         </button>
         <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored
                             mdl-color-text--teal explore-buttons" id="edit-layer">

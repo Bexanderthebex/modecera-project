@@ -78,6 +78,10 @@ export class MapComponent implements OnInit {
 
   }
 
+  private flyToHandler(bounds: L.LatLngBounds): void {
+    this.map.flyToBounds(bounds);
+  }
+
   private addToOverlayStorage(overlay: {
     [key: string]: fromModels.OverlayFactoryPattern.Overlay[];
   }): void {

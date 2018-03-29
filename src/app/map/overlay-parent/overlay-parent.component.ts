@@ -12,6 +12,9 @@ export class OverlayParentComponent implements OnInit {
   @Output() 
   layerEmitter: EventEmitter<fromModels.OverlayAction> 
       = new EventEmitter<fromModels.OverlayAction>();
+  @Output()
+  boundsEmitter: EventEmitter<L.LatLngBounds>
+      = new EventEmitter<L.LatLngBounds>();
   private componentName: string;
   private show: boolean;
 
@@ -31,7 +34,11 @@ export class OverlayParentComponent implements OnInit {
     return this.show;
   }
 
-  emitLayer(event: fromModels.OverlayAction) {
+  private emitLayer(event: fromModels.OverlayAction): void {
     this.layerEmitter.emit(event);
+  }
+
+  private emitLayerBounds(event: L.LatLngBounds): void {
+    this.boundsEmitter.emit(event);
   }
 }
