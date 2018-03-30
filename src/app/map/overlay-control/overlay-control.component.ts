@@ -25,12 +25,10 @@ export class OverlayControlComponent implements OnInit, OnChanges{
   boundsEmitter: EventEmitter<any>
       = new EventEmitter<any>();
   private show: boolean;
-  private explore: boolean;
   private layerObject: any;
 
   constructor(private mapService: MapService) {
     this.show = false;
-    this.explore = false;
   }
 
   ngOnInit() { }
@@ -68,7 +66,6 @@ export class OverlayControlComponent implements OnInit, OnChanges{
   }
 
   private emitLayerBounds(): void {
-    console.log('triggered');
     this.boundsEmitter.emit(this.layer.data.getBounds());
   }
 

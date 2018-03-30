@@ -5,13 +5,13 @@ import { MapService } from '../../services/map.service';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
-  selector: "app-overlay-chooser",
-  templateUrl: "./overlay-chooser.component.html",
-  styleUrls: ["./overlay-chooser.component.css"]
+  selector: "app-overlay-chooser-parent",
+  templateUrl: "./overlay-chooser-parent.component.html",
+  styleUrls: ["./overlay-chooser-parent.component.css"]
 })
-export class OverlayChooserComponent implements OnInit {
+export class OverlayChooserParentComponent implements OnInit {
   @Output()
-  overlayLayers: EventEmitter<{
+  overlayGroupEmitter: EventEmitter<{
     [key: string]: fromModels.OverlayFactoryPattern.Overlay[];
   }> = new EventEmitter<{
     [key: string]: fromModels.OverlayFactoryPattern.Overlay[];
@@ -58,7 +58,12 @@ export class OverlayChooserComponent implements OnInit {
     //       this.overlayLayers.emit(this.sample$);
     //     }
     //   )
+
     /* emit layers */
-    this.overlayLayers.emit(this.layers$);
+    // this.overlayGroupEmitter.emit(this.layers$);
+  }
+
+  private emitLayerGroup(event): void {
+    this.overlayGroupEmitter.emit(event);
   }
 }

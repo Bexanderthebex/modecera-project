@@ -16,9 +16,10 @@
         </i>
     </span>
 </button>
-<app-overlay-control *ngFor="let layer of overlay.value"
-    [hidden]="!showChild()"
-    [layer]="layer"
-    (layerEmitter)="emitLayer($event)"
-    (boundsEmitter)="emitLayerBounds($event)">
-</app-overlay-control>
+<ng-container *ngIf="overlay != null">
+    <app-overlay-control *ngFor="let layer of overlay.value" 
+        [hidden]="!showChild()" [layer]="layer" 
+        (layerEmitter)="emitLayer($event)"
+        (boundsEmitter)="emitLayerBounds($event)">
+    </app-overlay-control>
+</ng-container>

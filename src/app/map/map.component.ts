@@ -85,6 +85,6 @@ export class MapComponent implements OnInit {
   private addToOverlayStorage(overlay: {
     [key: string]: fromModels.OverlayFactoryPattern.Overlay[];
   }): void {
-    this.layers = overlay;
+    this.layers = Object.assign({}, this.layers, overlay);
   }
 }

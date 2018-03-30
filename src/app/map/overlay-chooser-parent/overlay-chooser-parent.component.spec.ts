@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OverlayChooserComponent } from './overlay-chooser.component';
+import { OverlayChooserParentComponent } from './overlay-chooser-parent.component';
 
 describe('OverlayChooserComponent', () => {
-  let component: OverlayChooserComponent;
-  let fixture: ComponentFixture<OverlayChooserComponent>;
+  let component: OverlayChooserParentComponent;
+  let fixture: ComponentFixture<OverlayChooserParentComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OverlayChooserComponent ]
+      declarations: [ OverlayChooserParentComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OverlayChooserComponent);
+    fixture = TestBed.createComponent(OverlayChooserParentComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
