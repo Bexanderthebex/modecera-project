@@ -40,9 +40,17 @@ export class OverlayChooserParentComponent implements OnInit {
       link:
         "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Carranglan.geojson?alt=media"
     };
+    let sample4: fromModels.OverlayFactoryPattern.Overlay = {
+      id: "1",
+      name: "Catubig",
+      type: "L.GeoJSON",
+      link:
+        "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Catubig.geojson?alt=media"
+    };
 
     this.layers$ = {
-      watersheds: [sample1, sample2, sample3]
+      watersheds: [sample1, sample2, sample3],
+      watersheds2: [sample4]
     };
   }
 

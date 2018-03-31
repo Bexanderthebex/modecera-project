@@ -6,25 +6,13 @@
             </mat-slide-toggle>
         </span>
     </span>
-    <span class="mdl-list__item-secondary-action">
+    <span class="mdl-list__item-secondary-action" matTooltip="Go to layer">
         <button mat-icon-button class="explore-buttons mdl-color-text--teal"
                 (click)="emitLayerBounds()" disabled={{!overlayControlShow}}>
-            <mat-icon matTooltip="Go to layer">
+            <mat-icon>
                 near_me
             </mat-icon>
         </button>
-        <!-- <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored
-                       mdl-color-text--teal explore-buttons" 
-                [attr.id]="layer.name"
-                [disabled]="!overlayControlShow" 
-                (click)="emitLayerBounds()">
-            <i class="material-icons">
-                near_me
-            </i>
-        </button>
-        <div class="mdl-tooltip" [attr.for]="layer.name">
-            Go to layer
-        </div> -->
     </span>
 </div>
 

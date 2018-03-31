@@ -2,7 +2,6 @@ import {
   Component, 
   OnInit, 
   Input, 
-  OnChanges, 
   Output, 
   EventEmitter 
 } from '@angular/core';
@@ -12,17 +11,21 @@ import {
   templateUrl: './overlay-chooser-child.component.html',
   styleUrls: ['./overlay-chooser-child.component.css']
 })
-export class OverlayChooserChildComponent implements OnInit, OnChanges {
+export class OverlayChooserChildComponent implements OnInit {
   @Input() layer: any;
   @Output() layerEmitter: EventEmitter<any> = new EventEmitter<any>();
+  private showLayers: boolean;
 
-  constructor() { }
+  constructor() {
+    this.showLayers = false;
+  }
 
   ngOnInit() {
   
   }
 
-  ngOnChanges() {
+  private toggleShowLayers(): void {
+    this.showLayers = !this.showLayers;
   }
 
   private emitLayer(): void {

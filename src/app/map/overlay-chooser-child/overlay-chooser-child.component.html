@@ -11,11 +11,17 @@
         </i>
     </button>
     <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored
-                      mdl-color-text--teal explore-buttons">
+                      mdl-color-text--teal explore-buttons"
+            (click)="toggleShowLayers()">
       <i class="material-icons">
         arrow_drop_down
       </i>
     </button>
   </span>
 </div>
+<mat-list *ngIf=showLayers>
+  <mat-list-item *ngFor="let layer of layer.value">
+    {{layer.name}}
+  </mat-list-item>
+</mat-list>
 <!-- TODO: display the items inside the value array -->
