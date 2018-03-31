@@ -24,11 +24,11 @@ export class OverlayControlComponent implements OnInit, OnChanges{
   @Output()
   boundsEmitter: EventEmitter<any>
       = new EventEmitter<any>();
-  private show: boolean;
+  private overlayControlShow: boolean;
   private layerObject: any;
 
   constructor(private mapService: MapService) {
-    this.show = false;
+    this.overlayControlShow = false;
   }
 
   ngOnInit() { }
@@ -43,14 +43,15 @@ export class OverlayControlComponent implements OnInit, OnChanges{
   }
 
   private toggleShow(): void {
-    this.show = !this.show;
+    this.overlayControlShow = !this.overlayControlShow;
+    console.log(this.overlayControlShow);
   }
 
   private emitLayer(): void {
     let overlayAction: fromModels.OverlayAction;
 
     this.toggleShow();
-    if(this.show) {
+    if(this.overlayControlShow) {
       overlayAction = {
         action: fromModels.ADD,
         overlay: this.layer

@@ -1,24 +1,30 @@
 <div class="mdl-list__item">
     <span class="mdl-list__item-primary-content">
         <span class="show-button-margin">
-            <mdl-switch mdl-ripple (click)="emitLayer()">
+            <mat-slide-toggle (click)="emitLayer()" class="mdl-color-teal">
                 {{layer.name}}
-            </mdl-switch>
+            </mat-slide-toggle>
         </span>
     </span>
     <span class="mdl-list__item-secondary-action">
-        <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored
+        <button mat-icon-button class="explore-buttons mdl-color-text--teal"
+                (click)="emitLayerBounds()" disabled={{!overlayControlShow}}>
+            <mat-icon matTooltip="Go to layer">
+                near_me
+            </mat-icon>
+        </button>
+        <!-- <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored
                        mdl-color-text--teal explore-buttons" 
-                id="go-to-layer" 
-                [disabled]="!show" 
+                [attr.id]="layer.name"
+                [disabled]="!overlayControlShow" 
                 (click)="emitLayerBounds()">
             <i class="material-icons">
                 near_me
             </i>
         </button>
-        <div class="mdl-tooltip" data-mdl-for="go-to-layer" [hidden]="!show">
+        <div class="mdl-tooltip" [attr.for]="layer.name">
             Go to layer
-        </div>
+        </div> -->
     </span>
 </div>
 

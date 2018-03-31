@@ -1,9 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
-import { MdlModule } from '@angular-mdl/core';
-
 
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
@@ -15,6 +14,10 @@ import { OverlayParentComponent } from './map/overlay-parent/overlay-parent.comp
 import { OverlayPipe } from "./pipes/overlay.pipe";
 import { OverlayChooserChildComponent } from './map/overlay-chooser-child/overlay-chooser-child.component';
 
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { MatButtonModule } from "@angular/material/button";
+import { MatIconModule } from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -30,11 +33,13 @@ import { OverlayChooserChildComponent } from './map/overlay-chooser-child/overla
   imports: [
     BrowserModule,
     HttpClientModule,
-    MdlModule
+    BrowserAnimationsModule,
+    MatTooltipModule,
+    MatSlideToggleModule,
+    MatButtonModule,
+    MatIconModule
   ],
-  providers: [
-    MapService,
-  ],
+  providers: [MapService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
