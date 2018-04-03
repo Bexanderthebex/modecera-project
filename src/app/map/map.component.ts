@@ -5,6 +5,7 @@ import * as L from 'leaflet';   // import all components of leaflet and not just
 // remember to put the access tokens into the productions enviroment when deploying
 import { environment } from '../../environments/environment';
 import * as fromModels from '../models';
+import 'leaflet-draw';
 
 @Component({
   selector: "app-map",
@@ -15,6 +16,23 @@ export class MapComponent implements OnInit {
   private map: L.Map;
   private basemaps: L.TileLayer[];
   private layers: { [key: string]: fromModels.OverlayFactoryPattern.Overlay[] }; //the key groups the overlays
+  private drawControl: L.Control.Draw;
+  private editableLayers = new L.FeatureGroup();
+  private drawControlOptions: L.Control.DrawConstructorOptions = {
+    position: "topleft",
+    draw: {
+      polyline: {
+        shapeOptions: {
+          color: "#f357a1",
+          weight: 2
+        }
+      }
+    },
+    edit: {
+      featureGroup: this.editableLayers,
+      remove: false
+    }
+  };
 
   /* TODO: utilize MapService to fetch shape files */
   constructor(private mapService: MapService) {
@@ -52,9 +70,23 @@ export class MapComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.map = new L.Map("map", {
+    // instantiate the map object in leaflet
+    this.map = new L.Map('map', {
       center: [13.624633438236152, 125.63964843750001],
       zoom: 6
+    });
+
+    // create the draw object 
+    this.drawControl = new L.Control.Draw(this.drawControlOptions);
+
+    // add the draw object into the map
+    this.map.addControl(this.drawControl);
+
+    // add the layer when created from the draw plugin
+    this.map.on(L.Draw.Event.CREATED, (e: any) => {
+      let layer = (e as L.DrawEvents.Created).layer;
+      this.editableLayers.addLayer(layer);
+      this.map.addLayer(layer);
     });
 
     this.basemaps[0].addTo(this.map);
@@ -68,14 +100,11 @@ export class MapComponent implements OnInit {
   }
 
   private overlayHandler(overlay: fromModels.OverlayAction): void {
-    var myStyle = { color: "#ff7800", weight: 5, opacity: 0.65 };
-
-    if(overlay.action == fromModels.ADD) {
+    if (overlay.action == fromModels.ADD) {
       overlay.overlay.data.addTo(this.map);
     } else {
       this.map.removeLayer(overlay.overlay.data);
     }
-
   }
 
   private flyToHandler(bounds: L.LatLngBounds): void {

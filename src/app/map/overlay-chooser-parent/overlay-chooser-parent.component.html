@@ -1,4 +1,5 @@
-<app-overlay-chooser-child *ngFor="let layer of layers$ | overlaypipe" 
-    [layer]="layer" 
-    (layerEmitter)="emitLayerGroup($event)">
-</app-overlay-chooser-child>
+<div *ngIf="layers$ != undefined">
+    <app-overlay-chooser-child *ngFor="let layer of layers$ | overlaypipe" [layer]="layer" (layerEmitter)="emitLayerGroup($event)">
+    </app-overlay-chooser-child>
+</div> 
+

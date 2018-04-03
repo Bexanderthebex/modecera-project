@@ -1,4 +1,4 @@
-<div class="mdl-list__item">
+<div class="mdl-list__item" style="border-bottom: 2px solid teal;">
   <span class="mdl-list__item-primary-content">
     {{layer.key}}
   </span>
@@ -6,15 +6,21 @@
     <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored
                   mdl-color-text--teal explore-buttons"
             (click)="emitLayer()">
-        <i class="material-icons">
+        <i id="add-layer-group" class="material-icons">
           add
         </i>
+        <div class="mdl-tooltip" for="add-layer-group">
+          add layer group
+        </div>
     </button>
     <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored
                       mdl-color-text--teal explore-buttons"
             (click)="toggleShowLayers()">
-      <i class="material-icons">
+      <i class="material-icons" [hidden]="showLayers">
         arrow_drop_down
+      </i>
+      <i class="material-icons" [hidden]="!showLayers">
+        arrow_drop_up
       </i>
     </button>
   </span>
