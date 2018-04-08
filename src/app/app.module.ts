@@ -9,16 +9,16 @@ import { MapComponent } from './map/map.component';
 import { MapService } from './services/map.service';
 import { BaseMapChooserComponent } from './map/base-map-chooser/base-map-chooser.component';
 import { OverlayControlComponent } from './map/overlay-control/overlay-control.component';
-import { OverlayChooserParentComponent } from './map/overlay-chooser-parent/overlay-chooser-parent.component';
 import { OverlayParentComponent } from './map/overlay-parent/overlay-parent.component';
 import { OverlayPipe } from "./pipes/overlay.pipe";
-import { OverlayChooserChildComponent } from './map/overlay-chooser-child/overlay-chooser-child.component';
 
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatListModule } from "@angular/material/list";
+import { AnalysisComponent } from './map/analysis/analysis.component';
+import { MatMenuModule } from "@angular/material/menu";
 
 @NgModule({
   declarations: [
@@ -26,10 +26,9 @@ import { MatListModule } from "@angular/material/list";
     MapComponent,
     BaseMapChooserComponent,
     OverlayControlComponent,
-    OverlayChooserParentComponent,
     OverlayParentComponent,
     OverlayPipe,
-    OverlayChooserChildComponent
+    AnalysisComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +38,8 @@ import { MatListModule } from "@angular/material/list";
     MatSlideToggleModule,
     MatButtonModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatMenuModule
   ],
   providers: [MapService],
   bootstrap: [AppComponent]

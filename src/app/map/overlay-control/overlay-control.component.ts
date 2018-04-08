@@ -53,12 +53,12 @@ export class OverlayControlComponent implements OnInit, OnChanges{
     this.toggleShow();
     if(this.overlayControlShow) {
       overlayAction = {
-        action: fromModels.ADD,
+        action: fromModels.OVERLAY_ADD,
         overlay: this.layer
       }
     } else {
       overlayAction = {
-        action: fromModels.REMOVE,
+        action: fromModels.OVERLAY_REMOVE,
         overlay: this.layer
       }
     }

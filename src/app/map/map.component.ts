@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { 
+  Component, 
+  OnInit 
+} from '@angular/core';
 import { MapService } from '../services/map.service';
 import * as L from 'leaflet';   // import all components of leaflet and not just 
                                 // exported 'namespace'
@@ -15,24 +18,8 @@ import 'leaflet-draw';
 export class MapComponent implements OnInit {
   private map: L.Map;
   private basemaps: L.TileLayer[];
-  private layers: { [key: string]: fromModels.OverlayFactoryPattern.Overlay[] }; //the key groups the overlays
-  private drawControl: L.Control.Draw;
+  private layers$: { [key: string]: fromModels.OverlayFactoryPattern.Overlay[] }; //the key groups the overlays
   private editableLayers = new L.FeatureGroup();
-  private drawControlOptions: L.Control.DrawConstructorOptions = {
-    position: "topleft",
-    draw: {
-      polyline: {
-        shapeOptions: {
-          color: "#f357a1",
-          weight: 2
-        }
-      }
-    },
-    edit: {
-      featureGroup: this.editableLayers,
-      remove: false
-    }
-  };
 
   /* TODO: utilize MapService to fetch shape files */
   constructor(private mapService: MapService) {
@@ -66,7 +53,13 @@ export class MapComponent implements OnInit {
       )
     ];
 
-    this.layers = {};
+    /* should be fetched from an api */
+    let sample1: fromModels.OverlayFactoryPattern.Overlay = { id: "1", name: "Aborlan", type: "L.GeoJSON", link: "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Aborlan.geojson?alt=media" };
+    let sample2: fromModels.OverlayFactoryPattern.Overlay = { id: "1", name: "Balogo", type: "L.GeoJSON", link: "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Balogo.geojson?alt=media" };
+    let sample3: fromModels.OverlayFactoryPattern.Overlay = { id: "1", name: "Carranglan", type: "L.GeoJSON", link: "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Carranglan.geojson?alt=media" };
+    let sample4: fromModels.OverlayFactoryPattern.Overlay = { id: "1", name: "Catubig", type: "L.GeoJSON", link: "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Catubig.geojson?alt=media" };
+
+    this.layers$ = { watersheds: [sample1, sample2, sample3], watersheds2: [sample4] };
   }
 
   ngOnInit() {
@@ -75,12 +68,6 @@ export class MapComponent implements OnInit {
       center: [13.624633438236152, 125.63964843750001],
       zoom: 6
     });
-
-    // create the draw object 
-    this.drawControl = new L.Control.Draw(this.drawControlOptions);
-
-    // add the draw object into the map
-    this.map.addControl(this.drawControl);
 
     // add the layer when created from the draw plugin
     this.map.on(L.Draw.Event.CREATED, (e: any) => {
@@ -92,6 +79,10 @@ export class MapComponent implements OnInit {
     this.basemaps[0].addTo(this.map);
   }
 
+  ngDoCheck() {
+
+  }
+
   private addBaseLayer(layer: L.TileLayer[]): void {
     console.log(layer);
     this.map.removeLayer(layer["old"]);
@@ -100,7 +91,7 @@ export class MapComponent implements OnInit {
   }
 
   private overlayHandler(overlay: fromModels.OverlayAction): void {
-    if (overlay.action == fromModels.ADD) {
+    if (overlay.action == fromModels.OVERLAY_ADD) {
       overlay.overlay.data.addTo(this.map);
     } else {
       this.map.removeLayer(overlay.overlay.data);
@@ -111,9 +102,15 @@ export class MapComponent implements OnInit {
     this.map.flyToBounds(bounds);
   }
 
+  private drawCircle(): void {
+    new L.Draw.Circle(this.map).enable();
+  }
+
+  
   private addToOverlayStorage(overlay: {
     [key: string]: fromModels.OverlayFactoryPattern.Overlay[];
   }): void {
-    this.layers = Object.assign({}, this.layers, overlay);
+    this.layers$[Object.keys(overlay)[0]] = overlay[Object.keys(overlay)[0]]
+    console.log(this.layers$);
   }
 }

@@ -23,7 +23,6 @@ export class OverlayParentComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.overlay);
     this.componentName = this.overlay.key;
   }
 
