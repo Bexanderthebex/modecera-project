@@ -6,17 +6,18 @@
             </mat-slide-toggle>
         </span>
     </span>
+    <button mat-raised-button [matMenuTriggerFor]="menu">
+        analysis
+    </button>
+    <mat-menu #menu="matMenu" xPosition="after">
+        <button (click)="emitPolylineAction()" mat-menu-item>area</button>
+    </mat-menu>
     <span class="mdl-list__item-secondary-action" matTooltip="Go to layer">
-        <button mat-icon-button class="explore-buttons mdl-color-text--teal"
+        <button mat-icon-button class="mdl-color-text--teal"
                 (click)="emitLayerBounds()" disabled={{!overlayControlShow}}>
             <mat-icon>
                 near_me
             </mat-icon>
         </button>
     </span>
-    <button mat-button [matMenuTriggerFor]="menu">Menu</button>
-    <mat-menu #menu="matMenu">
-        <button mat-menu-item>Item 1</button>
-        <button mat-menu-item>Item 2</button>
-    </mat-menu>
 </div>

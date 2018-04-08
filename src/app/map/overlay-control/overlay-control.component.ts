@@ -9,7 +9,6 @@ import {
 import * as fromModels from '../../models';
 import * as L from "leaflet"; 
 import { MapService } from '../../services/map.service';
-import { OverlayFactoryPattern } from '../../models';
 
 @Component({
   selector: 'app-overlay-control',
@@ -19,11 +18,15 @@ import { OverlayFactoryPattern } from '../../models';
 export class OverlayControlComponent implements OnInit, OnChanges{
   @Input() layer: fromModels.OverlayFactoryPattern.Overlay;
   @Output() 
-  layerEmitter: EventEmitter<fromModels.OverlayAction> 
-      = new EventEmitter<fromModels.OverlayAction>();
+  layerEmitter: EventEmitter<fromModels.OverlayAction> = new EventEmitter<
+    fromModels.OverlayAction
+  >();
   @Output()
-  boundsEmitter: EventEmitter<any>
-      = new EventEmitter<any>();
+  boundsEmitter: EventEmitter<any> = new EventEmitter<any>();
+  @Output()
+  drawEmitter: EventEmitter<fromModels.DrawAction> = new EventEmitter<
+    fromModels.DrawAction
+  >();
   private overlayControlShow: boolean;
   private layerObject: any;
 
@@ -36,7 +39,8 @@ export class OverlayControlComponent implements OnInit, OnChanges{
   ngOnChanges() {
     this.mapService.getTileLayer(this.layer.link).subscribe(
       (data: any) => {
-        this.layerObject = OverlayFactoryPattern.DataFactory.createOverlay(this.layer.type);
+        this.layerObject = fromModels.OverlayFactoryPattern
+            .DataFactory.createOverlay(this.layer.type);
         this.layer.data = this.layerObject.create(data);
       }
     )
@@ -68,6 +72,17 @@ export class OverlayControlComponent implements OnInit, OnChanges{
 
   private emitLayerBounds(): void {
     this.boundsEmitter.emit(this.layer.data.getBounds());
+  }
+
+  private emitPolylineAction(): void {
+    this.emitLayer();
+    this.emitLayerBounds();
+
+    let action: fromModels.DrawAction = {
+      name: fromModels.DRAW_ADD,
+      type: fromModels.POLYLINE,
+    }
+    this.drawEmitter.emit(action);
   }
 
 }

@@ -79,10 +79,6 @@ export class MapComponent implements OnInit {
     this.basemaps[0].addTo(this.map);
   }
 
-  ngDoCheck() {
-
-  }
-
   private addBaseLayer(layer: L.TileLayer[]): void {
     console.log(layer);
     this.map.removeLayer(layer["old"]);
@@ -102,15 +98,12 @@ export class MapComponent implements OnInit {
     this.map.flyToBounds(bounds);
   }
 
-  private drawCircle(): void {
-    new L.Draw.Circle(this.map).enable();
+  private drawActionHandler(drawAction: fromModels.DrawAction): void {
+    fromModels.DrawFactoryPattern
+        .DrawFactory.createDrawAction(drawAction.type, this.map);
   }
 
-  
-  private addToOverlayStorage(overlay: {
-    [key: string]: fromModels.OverlayFactoryPattern.Overlay[];
-  }): void {
-    this.layers$[Object.keys(overlay)[0]] = overlay[Object.keys(overlay)[0]]
-    console.log(this.layers$);
+  private drawCircle(): void {
+    new L.Draw.Circle(this.map).enable();
   }
 }

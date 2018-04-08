@@ -21,7 +21,8 @@
         <app-overlay-parent *ngFor="let layer of layers$ | overlaypipe"
             [overlay]="layer"
             (layerEmitter)="overlayHandler($event)"
-            (boundsEmitter)="flyToHandler($event)">
+            (boundsEmitter)="flyToHandler($event)"
+            (drawEmitter)="drawActionHandler($event)">
         </app-overlay-parent>
     </div>
 </div>

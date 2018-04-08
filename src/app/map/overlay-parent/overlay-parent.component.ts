@@ -10,11 +10,16 @@ export class OverlayParentComponent implements OnInit {
   @Input() 
   overlay: any;
   @Output() 
-  layerEmitter: EventEmitter<fromModels.OverlayAction> 
-      = new EventEmitter<fromModels.OverlayAction>();
+  layerEmitter: EventEmitter<fromModels.OverlayAction> = new EventEmitter<
+    fromModels.OverlayAction
+  >();
   @Output()
-  boundsEmitter: EventEmitter<L.LatLngBounds>
-      = new EventEmitter<L.LatLngBounds>();
+  boundsEmitter: EventEmitter<L.LatLngBounds> = new EventEmitter<L.LatLngBounds>();
+  @Output()
+  drawEmitter: EventEmitter<fromModels.DrawAction> = new EventEmitter<
+    fromModels.DrawAction
+  >();
+
   private componentName: string;
   private show: boolean;
 
@@ -40,5 +45,9 @@ export class OverlayParentComponent implements OnInit {
 
   private emitLayerBounds(event: L.LatLngBounds): void {
     this.boundsEmitter.emit(event);
+  }
+
+  private emitDrawAction(event: fromModels.DrawAction): void {
+    this.drawEmitter.emit(event);
   }
 }
