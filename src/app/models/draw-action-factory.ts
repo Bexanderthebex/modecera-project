@@ -11,6 +11,9 @@ export namespace DrawFactoryPattern {
             if (type == fromDrawActionModel.POLYLINE) {
                 return new L.Draw.Polyline(map).enable();
             }
+            else if (type == fromDrawActionModel.POLYGON) {
+                return new L.Draw.Polygon(map).enable();
+            }
 
             return null;
         }

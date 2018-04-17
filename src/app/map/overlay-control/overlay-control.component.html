@@ -1,7 +1,7 @@
 <div class="mdl-list__item">
     <span class="mdl-list__item-primary-content">
         <span class="show-button-margin">
-            <mat-slide-toggle (click)="emitLayer()" class="mdl-color-teal">
+            <mat-slide-toggle #slideToggle (click)="emitLayer()" [id]=layer.name class="mdl-color-teal">
                 {{layer.name}}
             </mat-slide-toggle>
         </span>
@@ -10,7 +10,7 @@
         analysis
     </button>
     <mat-menu #menu="matMenu" xPosition="after">
-        <button (click)="emitPolylineAction()" mat-menu-item>area</button>
+        <button (click)="emitPolygonAction()" mat-menu-item>area</button>
     </mat-menu>
     <span class="mdl-list__item-secondary-action" matTooltip="Go to layer">
         <button mat-icon-button class="mdl-color-text--teal"

@@ -52,7 +52,7 @@ export class MapComponent implements OnInit {
         }
       )
     ];
-
+    
     /* should be fetched from an api */
     let sample1: fromModels.OverlayFactoryPattern.Overlay = { id: "1", name: "Aborlan", type: "L.GeoJSON", link: "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Aborlan.geojson?alt=media" };
     let sample2: fromModels.OverlayFactoryPattern.Overlay = { id: "1", name: "Balogo", type: "L.GeoJSON", link: "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Balogo.geojson?alt=media" };
@@ -71,6 +71,7 @@ export class MapComponent implements OnInit {
 
     // add the layer when created from the draw plugin
     this.map.on(L.Draw.Event.CREATED, (e: any) => {
+      console.log(e);
       let layer = (e as L.DrawEvents.Created).layer;
       this.editableLayers.addLayer(layer);
       this.map.addLayer(layer);

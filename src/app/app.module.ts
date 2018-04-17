@@ -19,6 +19,10 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatListModule } from "@angular/material/list";
 import { AnalysisComponent } from './map/analysis/analysis.component';
 import { MatMenuModule } from "@angular/material/menu";
+import { MatCardModule } from "@angular/material/card";
+
+import { AppRoutingModule } from './app-routing.module';
+import { AdminModule } from './admin.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +32,7 @@ import { MatMenuModule } from "@angular/material/menu";
     OverlayControlComponent,
     OverlayParentComponent,
     OverlayPipe,
-    AnalysisComponent
+    AnalysisComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,7 +43,9 @@ import { MatMenuModule } from "@angular/material/menu";
     MatButtonModule,
     MatIconModule,
     MatListModule,
-    MatMenuModule
+    MatMenuModule,
+    MatCardModule,
+    AppRoutingModule
   ],
   providers: [MapService],
   bootstrap: [AppComponent]

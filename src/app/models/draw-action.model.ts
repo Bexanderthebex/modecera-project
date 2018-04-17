@@ -9,6 +9,7 @@ export const POLYLINE = '[draw_type] polyline';
 export const RECTANGLE = '[draw_type] rectangle';
 export const MARKER = '[draw_type] marker';
 export const CIRCLE = '[draw_type] circle';
+export const POLYGON = '[draw_type] polygon'
 
 export interface DrawAction {
     name: string;

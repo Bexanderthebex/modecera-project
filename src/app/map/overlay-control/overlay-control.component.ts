@@ -5,10 +5,12 @@ import {
   EventEmitter, 
   Output,
   OnChanges,
+  ViewChild
 } from '@angular/core';
 import * as fromModels from '../../models';
 import * as L from "leaflet"; 
 import { MapService } from '../../services/map.service';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-overlay-control',
@@ -27,6 +29,9 @@ export class OverlayControlComponent implements OnInit, OnChanges{
   drawEmitter: EventEmitter<fromModels.DrawAction> = new EventEmitter<
     fromModels.DrawAction
   >();
+  @ViewChild('slideToggle') slideToggle: MatSlideToggle;
+
+
   private overlayControlShow: boolean;
   private layerObject: any;
 
@@ -74,13 +79,16 @@ export class OverlayControlComponent implements OnInit, OnChanges{
     this.boundsEmitter.emit(this.layer.data.getBounds());
   }
 
-  private emitPolylineAction(): void {
-    this.emitLayer();
+  private emitPolygonAction(event: any): void {
+    this.slideToggle.checked = true;
+    let element: HTMLElement = document.getElementById(this.layer.name) as HTMLElement;
+    element.click();
+
     this.emitLayerBounds();
 
     let action: fromModels.DrawAction = {
       name: fromModels.DRAW_ADD,
-      type: fromModels.POLYLINE,
+      type: fromModels.POLYGON,
     }
     this.drawEmitter.emit(action);
   }
