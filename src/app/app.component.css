@@ -1,3 +1,7 @@
 a.mdl-js-ripple-effect {
     position: relative;
 }
+
+html, body {
+    height: 100%
+}

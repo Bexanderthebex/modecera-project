@@ -19,10 +19,10 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatListModule } from "@angular/material/list";
 import { AnalysisComponent } from './map/analysis/analysis.component';
 import { MatMenuModule } from "@angular/material/menu";
-import { MatCardModule } from "@angular/material/card";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AdminModule } from './admin.module';
+import { AuthModule } from './auth-module/auth.module';
 
 @NgModule({
   declarations: [
@@ -44,7 +44,8 @@ import { AdminModule } from './admin.module';
     MatIconModule,
     MatListModule,
     MatMenuModule,
-    MatCardModule,
+    AdminModule,
+    AuthModule,
     AppRoutingModule
   ],
   providers: [MapService],

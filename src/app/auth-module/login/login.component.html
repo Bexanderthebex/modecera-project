@@ -1,0 +1,46 @@
+<h1 style="font-size: 24px; margin: 20px 0px 0px 0px;">
+  Sign in
+</h1>
+
+<h2 style="font-size: 15px; margin-top: -17px;">
+  to admin page
+</h2>
+
+<div [formGroup]="login">
+  <form action="#">
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <input class="mdl-textfield__input" type="email" id="email" [formControl]="login.controls['email']">
+      <label class="mdl-textfield__label" for="email">Email</label>
+    </div>
+  </form>
+
+  <form action="#">
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <input class="mdl-textfield__input" type="password" id="password" [formControl]="login.controls['password']">
+      <label class="mdl-textfield__label" for="password">Password</label>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="!loading">
+  <button class="mdl-button mdl-color-text--primary" style="text-transform: none !important;"
+          routerLink="/auth/accountrecovery">
+    forgot password?
+  </button>
+</div>
+
+<div style="margin-top: 20px;">
+  <button class="mdl-button mdl-color-text--primary"
+          style="text-transform: none !important;"
+          routerLink="/auth/signup"
+          *ngIf="!loading">
+    Create account
+  </button>
+  <div *ngIf="loading" class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active mdl-color-text--teal-900; margin-left: 100px;"></div>
+  <button *ngIf="!loading" mat-button class="mdl-color--teal-900 mdl-color-text--white" 
+          (click)="onSubmit(login.value)"
+          (keyup.enter)="onSubmit(login.value)"
+          style="margin-left: 100px; line-height: 45px;">
+    Sign in
+  </button>
+</div>

@@ -1,0 +1,42 @@
+<h1 style="font-size: 24px; margin: 20px 0px 0px 0px;">
+    Sign up
+</h1>
+
+<h2 style="font-size: 15px; margin-top: -17px;">
+    as admin
+</h2>
+
+<div [formGroup]="signup">
+    <form action="#">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="email" id="email" 
+                    [formControl]="signup.controls['email']">
+            <label class="mdl-textfield__label" for="email">Email</label>
+        </div>
+    </form>
+
+    <form action="#">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="password" id="password" 
+                    [formControl]="signup.controls['password']">
+            <label class="mdl-textfield__label" for="password">Password</label>
+        </div>
+    </form>
+
+    <form action="#">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="password" id="confirmPassword" 
+                    [formControl]="signup.controls['confirmPassword']">
+            <label class="mdl-textfield__label" for="confirmPassword">Confirm password</label>
+        </div>
+    </form>
+</div>
+
+<div style="margin-top: 30px;">
+    <button mat-button class="mdl-color--teal-900 mdl-color-text--white" 
+            (click)="onSubmit(signup.value)" 
+            (keyup.enter)="onSubmit(signup.value)"
+        style="min-width: 373px; line-height: 45px;">
+        Sign up
+    </button>
+</div>
