@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MapListComponent implements OnInit {
   private dummyData: any;
-  position;
+  position = "above";
 
   constructor() {
     this.dummyData = [
