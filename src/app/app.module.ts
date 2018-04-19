@@ -21,8 +21,7 @@ import { AnalysisComponent } from './map/analysis/analysis.component';
 import { MatMenuModule } from "@angular/material/menu";
 
 import { AppRoutingModule } from './app-routing.module';
-import { AdminModule } from './admin.module';
-import { AuthModule } from './auth-module/auth.module';
+
 
 @NgModule({
   declarations: [
@@ -44,8 +43,6 @@ import { AuthModule } from './auth-module/auth.module';
     MatIconModule,
     MatListModule,
     MatMenuModule,
-    AdminModule,
-    AuthModule,
     AppRoutingModule
   ],
   providers: [MapService],

@@ -30,17 +30,17 @@
 </div>
 
 <div style="margin-top: 20px;">
-  <button class="mdl-button mdl-color-text--primary"
+  <a class="mdl-button mdl-color-text--primary"
           style="text-transform: none !important;"
           routerLink="/auth/signup"
           *ngIf="!loading">
     Create account
-  </button>
+  </a>
   <div *ngIf="loading" class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active mdl-color-text--teal-900; margin-left: 100px;"></div>
-  <button *ngIf="!loading" mat-button class="mdl-color--teal-900 mdl-color-text--white" 
+  <a *ngIf="!loading" mat-button class="mdl-color--teal-900 mdl-color-text--white" 
           (click)="onSubmit(login.value)"
           (keyup.enter)="onSubmit(login.value)"
           style="margin-left: 100px; line-height: 45px;">
     Sign in
-  </button>
+  </a>
 </div>

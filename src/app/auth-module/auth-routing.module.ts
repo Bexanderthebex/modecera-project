@@ -14,9 +14,6 @@ const routes: Routes = [
       { path: "accountrecovery", component: ForgotPasswordComponent },
       { path: "resetpassword", component: ResetPasswordComponent}
     ] },
-    
-    // insert signup component here
-    // insert forgot password component here
 ];
 
 @NgModule({

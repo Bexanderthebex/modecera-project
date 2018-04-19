@@ -1,0 +1,18 @@
+<div style="overflow-y: auto; height: 70vh;">
+    <mat-list>
+        <div *ngFor="let data of dummyData">
+            <mat-list-item>
+                <mat-icon mat-list-icon class="mdl-color-text--teal-900">layers</mat-icon>
+                <h4 mat-line>{{data.name}}</h4>
+                <p mat-line class="mdl-color-text--green-700"> {{data.type}} </p>
+                <button mat-icon-button matTooltip="edit layer" [matTooltipPosition]=position>
+                    <mat-icon>mode_edit</mat-icon>
+                </button>
+                <button mat-icon-button matTooltip="delete layer" [matTooltipPosition]=position>
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+        </div>
+    </mat-list>
+</div>

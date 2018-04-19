@@ -55,18 +55,20 @@ export class MapComponent implements OnInit {
     
     /* should be fetched from an api */
     let sample1: fromModels.OverlayFactoryPattern.Overlay = { id: "1", name: "Aborlan", type: "L.GeoJSON", link: "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Aborlan.geojson?alt=media" };
-    let sample2: fromModels.OverlayFactoryPattern.Overlay = { id: "1", name: "Balogo", type: "L.GeoJSON", link: "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Balogo.geojson?alt=media" };
-    let sample3: fromModels.OverlayFactoryPattern.Overlay = { id: "1", name: "Carranglan", type: "L.GeoJSON", link: "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Carranglan.geojson?alt=media" };
-    let sample4: fromModels.OverlayFactoryPattern.Overlay = { id: "1", name: "Catubig", type: "L.GeoJSON", link: "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Catubig.geojson?alt=media" };
+    let sample2: fromModels.OverlayFactoryPattern.Overlay = { id: "2", name: "Balogo", type: "L.GeoJSON", link: "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Balogo.geojson?alt=media" };
+    let sample3: fromModels.OverlayFactoryPattern.Overlay = { id: "3", name: "Carranglan", type: "L.GeoJSON", link: "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Carranglan.geojson?alt=media" };
+    let sample4: fromModels.OverlayFactoryPattern.Overlay = { id: "4", name: "Catubig", type: "L.GeoJSON", link: "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Catubig.geojson?alt=media" };
 
-    this.layers$ = { watersheds: [sample1, sample2, sample3], watersheds2: [sample4] };
+    this.layers$ = { watersheds: [sample1, sample2, sample3], watersheds2: [sample1, sample4] };
   }
 
   ngOnInit() {
     // instantiate the map object in leaflet
     this.map = new L.Map('map', {
       center: [13.624633438236152, 125.63964843750001],
-      zoom: 6
+      zoom: 6,
+      doubleClickZoom: false,
+      /* scrollWheelZoom: false */
     });
 
     // add the layer when created from the draw plugin
