@@ -17,6 +17,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatTooltipModule } from "@angular/material/tooltip";
 
 import { MapService } from "../services/map.service";
+import { LayerService } from "../services/layer.service";
 
 @NgModule({
   imports: [
@@ -34,6 +35,6 @@ import { MapService } from "../services/map.service";
     UploadLayerComponent,
     MapListComponent
   ],
-  providers: [ MapService ]
+  providers: [MapService, LayerService]
 })
 export class AdminModule {}

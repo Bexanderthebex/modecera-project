@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MapService } from "../../services/map.service";
+import { LayerService } from "../../services/layer.service";
 import { saveAs as SaveAs} from "file-saver";
 
 @Component({
@@ -11,7 +11,7 @@ export class LayerlistComponent implements OnInit {
   private dummyData: any;
   position = "above"
 
-  constructor(private mapService: MapService) { 
+  constructor(private layerService: LayerService) { 
     this.dummyData = [
       { id: "1", name: "Aborlan.geojson", type: "L.GeoJSON", link: "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Aborlan.geojson?alt=media" }, 
       { id: "2", name: "Balogo.geojson", type: "L.GeoJSON", link: "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Balogo.geojson?alt=media" },
@@ -32,7 +32,7 @@ export class LayerlistComponent implements OnInit {
   }
 
   downloadHandler(link: string, name: string): void {
-    this.mapService.downloadLayer(link).subscribe(blob => {
+    this.layerService.downloadLayer(link).subscribe(blob => {
       console.log(blob);
       SaveAs(blob, name);
     });

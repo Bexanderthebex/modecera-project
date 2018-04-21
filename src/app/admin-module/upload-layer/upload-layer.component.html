@@ -1,3 +1,35 @@
-<p>
-  upload-layer works!
-</p>
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--3-col"></div>
+  <div  class="mdl-cell mdl-cell--6-col" style="margin-top: 20vh;">
+    <div class="mdl-grid">
+      <div class="mdl-layout-spacer"></div>
+      <div *ngIf="filesSelected">
+        {{fileSelected.name}}
+      </div>
+      <div *ngIf="filesSelected != null">
+        There are no files selected. Please Select a file to upload
+      </div>
+      <div class="mdl-layout-spacer"></div>
+    </div>
+    <div class="mdl-grid" style="margin-top: 20px;">
+      <div class="mdl-layout-spacer"></div>
+      <div class="mdl-cell mdl-cell--6-col">
+        <label class="mdl-button mdl-button--colored mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+          Browse
+          <input type="file" style="display: none;" (change)="onFileSelected($event)">
+        </label>
+        <button mat-raised-button 
+                (click)="onFileUpload()" 
+                class="mdl-color--primary mdl-color-text--white"
+                *ngIf="filesSelected != null">
+          UPLOAD
+        </button>
+      </div>
+      <div class="mdl-layout-spacer"></div>
+    </div>
+  </div>
+  <div class="mdl-cell mdl-cell--3-col"></div>
+</div>
+
+
+

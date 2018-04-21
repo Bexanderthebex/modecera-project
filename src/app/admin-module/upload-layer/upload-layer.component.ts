@@ -6,10 +6,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./upload-layer.component.css']
 })
 export class UploadLayerComponent implements OnInit {
+  fileSelected: File = null;
 
   constructor() { }
 
   ngOnInit() {
   }
 
+  onFileSelected(event) {
+    this.fileSelected = <File>event.target.files[0];
+  }
+  
+  onFileUpload() {
+    
+  }
 }
