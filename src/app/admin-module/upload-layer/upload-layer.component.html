@@ -3,10 +3,10 @@
   <div  class="mdl-cell mdl-cell--6-col" style="margin-top: 20vh;">
     <div class="mdl-grid">
       <div class="mdl-layout-spacer"></div>
-      <div *ngIf="filesSelected">
+      <div *ngIf="fileSelected">
         {{fileSelected.name}}
       </div>
-      <div *ngIf="filesSelected != null">
+      <div *ngIf="fileSelected == null">
         There are no files selected. Please Select a file to upload
       </div>
       <div class="mdl-layout-spacer"></div>
@@ -21,7 +21,7 @@
         <button mat-raised-button 
                 (click)="onFileUpload()" 
                 class="mdl-color--primary mdl-color-text--white"
-                *ngIf="filesSelected != null">
+                *ngIf="fileSelected != null">
           UPLOAD
         </button>
       </div>

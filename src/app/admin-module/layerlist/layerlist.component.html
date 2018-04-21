@@ -1,26 +1,68 @@
-<div style="overflow-y: auto; height: 70vh;">
-    <mat-list>
-        <div *ngFor="let data of dummyData">
-            <mat-list-item>
-                <mat-icon mat-list-icon class="mdl-color-text--teal-900">layers</mat-icon>
-                <h4 mat-line>{{data.name}}</h4>
-                <p mat-line class="mdl-color-text--green-700"> {{data.type}} </p>
-                <button mat-icon-button matTooltip="edit layer" 
-                        [matTooltipPosition]=position>
-                    <mat-icon>mode_edit</mat-icon>
-                </button>
-                <button mat-icon-button matTooltip="download layer" 
-                        [matTooltipPosition]=position>
-                    <mat-icon (click)="downloadHandler(data.link, data.name)">
-                        file_download
-                    </mat-icon>
-                </button>
-                <button mat-icon-button matTooltip="delete layer" 
-                        [matTooltipPosition]=position class="mdl-color-text--red-600">
-                    <mat-icon>delete</mat-icon>
-                </button>
-            </mat-list-item>
-            <mat-divider></mat-divider>
+<div style="overflow-y: auto; height: 60vh;">
+    <div class="example-header mdl-grid">
+        <div class="mdl-cell mdl-cell--1-col">
+            <mat-form-field>
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+            </mat-form-field>
         </div>
-    </mat-list>
+        <div class="mdl-cell mdl-cell--1-col"></div>
+        <div class="mdl-cell mdl-cell--6-col"></div>
+        <div class="mdl-cell mdl-cell--1-col"
+             style="margin-right: 20px;">
+            <button mat-button class="mdl-color-text--red-900">
+                <mat-icon>delete</mat-icon>
+                Delete
+            </button>
+        </div>
+        <div class="mdl-cell mdl-cell--1-col"
+             style="margin-left: 20px; margin-right: 20px;">
+            <button mat-button class="mdl-color-text--primary">
+                <mat-icon>file_download</mat-icon>
+                Download
+            </button>
+        </div>
+    </div> 
+
+
+    <mat-table #table [dataSource] = "dataSource">
+        <ng-container matColumnDef="select">
+            <mat-header-cell *matHeaderCellDef>
+                <mat-checkbox (change)="$event ? masterToggle() : null" 
+                    [checked]="selection.hasValue() && isAllSelected()" 
+                    [indeterminate]="selection.hasValue() && !isAllSelected()">
+                </mat-checkbox>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation()" 
+                    (change)="$event ? selection.toggle(row) : null" 
+                    [checked]="selection.isSelected(row)">
+                </mat-checkbox>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef> File name </mat-header-cell>
+            <mat-cell *matCellDef="let layer"> {{layer.name}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="type">
+            <mat-header-cell *matHeaderCellDef> Type </mat-header-cell>
+            <mat-cell *matCellDef="let layer"> {{layer.type}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="link">
+            <mat-header-cell *matHeaderCellDef> Link </mat-header-cell>
+            <mat-cell *matCellDef="let layer"> {{layer.link}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="columnDef"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: columnDef;"></mat-row>
+
+
+    </mat-table>
+    <mat-paginator #paginator 
+                [pageSize]="5" 
+                [pageSizeOptions]="[5]" 
+                [showFirstLastButtons]="true">
+    </mat-paginator>
 </div>
