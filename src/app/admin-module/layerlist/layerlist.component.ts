@@ -116,10 +116,12 @@ export class LayerlistComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  downloadHandler(link: string, name: string): void {
-    this.layerService.downloadLayer(link).subscribe(blob => {
-      console.log(blob);
-      SaveAs(blob, name);
+  /* dirty implementation */
+  downloadHandler(): void {
+    this.selection.selected.forEach( (layer) => {
+      this.layerService.downloadLayer(layer["link"]).subscribe(blob => {
+        SaveAs(blob, layer["name"]);
+      })
     });
   }
 
