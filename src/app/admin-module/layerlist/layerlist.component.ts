@@ -3,6 +3,7 @@ import { LayerService } from "../../services/layer.service";
 import { saveAs as SaveAs} from "file-saver";
 import { MatPaginator, MatTableDataSource } from "@angular/material";
 import { SelectionModel } from "@angular/cdk/collections";
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: "app-layer-list",
@@ -10,7 +11,8 @@ import { SelectionModel } from "@angular/cdk/collections";
   styleUrls: ["./layerlist.component.css"]
 })
 export class LayerlistComponent implements OnInit, AfterViewInit {
-  private dummyData: any;
+  private layersLoaded: Boolean;
+  private layersData: any = null;
   private columnDef: any = [];
   private dataSource: any;
   selection = new SelectionModel<Element>(true, []);
@@ -19,101 +21,40 @@ export class LayerlistComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private layerService: LayerService) {
-    this.dummyData = [
-      {
-        id: "1",
-        name: "Aborlan.geojson",
-        type: "L.GeoJSON",
-        link:
-          "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Aborlan.geojson?alt=media"
-      },
-      {
-        id: "2",
-        name: "Balogo.geojson",
-        type: "L.GeoJSON",
-        link:
-          "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Balogo.geojson?alt=media"
-      },
-      {
-        id: "3",
-        name: "Carranglan.geojson",
-        type: "L.GeoJSON",
-        link:
-          "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Carranglan.geojson?alt=media"
-      },
-      {
-        id: "4",
-        name: "Aborlan.geojson",
-        type: "L.GeoJSON",
-        link:
-          "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Aborlan.geojson?alt=media"
-      },
-      {
-        id: "1",
-        name: "Aborlan.geojson",
-        type: "L.GeoJSON",
-        link:
-          "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Aborlan.geojson?alt=media"
-      },
-      {
-        id: "2",
-        name: "Balogo.geojson",
-        type: "L.GeoJSON",
-        link:
-          "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Balogo.geojson?alt=media"
-      },
-      {
-        id: "3",
-        name: "Carranglan.geojson",
-        type: "L.GeoJSON",
-        link:
-          "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Carranglan.geojson?alt=media"
-      },
-      {
-        id: "4",
-        name: "Aborlan.geojson",
-        type: "L.GeoJSON",
-        link:
-          "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Aborlan.geojson?alt=media"
-      },
-      {
-        id: "1",
-        name: "Aborlan.geojson",
-        type: "L.GeoJSON",
-        link:
-          "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Aborlan.geojson?alt=media"
-      },
-      {
-        id: "2",
-        name: "Balogo.geojson",
-        type: "L.GeoJSON",
-        link:
-          "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Balogo.geojson?alt=media"
-      },
-      {
-        id: "3",
-        name: "Carranglan.geojson",
-        type: "L.GeoJSON",
-        link:
-          "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Carranglan.geojson?alt=media"
-      },
-      {
-        id: "4",
-        name: "Aborlan.geojson",
-        type: "L.GeoJSON",
-        link:
-          "https://www.googleapis.com/storage/v1/b/modecera-geojson-files/o/Aborlan.geojson?alt=media"
-      }
-    ];
 
     this.columnDef = ["select", "name", "type", "link"];
-    this.dataSource = new MatTableDataSource<Element>(this.dummyData);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.layerService.getAllLayers().subscribe( (data) => {
+      console.log(data);
+      this.layersData = data;
+      this.dataSource = new MatTableDataSource<Element>(this.layersData);
+      this.layersLoaded = true;
+    }, error => {
+      console.log(error);
+    })
+  }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+  }
+
+  deleteHandler(): void {
+    this.layerService.deleteLayer(this.selection.selected.map(layer => {
+        return { _id: layer["_id"], name: layer["name"], bucket: layer["bucket"] };
+      })).subscribe( data => {
+            this.layerService.getAllLayers().subscribe(data => {
+                console.log(data);
+                this.layersData = data;
+                this.dataSource = new MatTableDataSource<Element>(this.layersData);
+                // this.layersLoaded = Promise.resolve(true);
+              }, error => {
+                console.log(error);
+              });
+      }, error => {
+        console.log(error)
+      });
   }
 
   /* dirty implementation */

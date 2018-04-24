@@ -9,7 +9,8 @@
         <div class="mdl-cell mdl-cell--6-col"></div>
         <div class="mdl-cell mdl-cell--1-col"
              style="margin-right: 20px;">
-            <button mat-button class="mdl-color-text--red-900">
+            <button mat-button class="mdl-color-text--red-900"
+                    (click)="deleteHandler()">
                 <mat-icon>delete</mat-icon>
                 Delete
             </button>
@@ -24,46 +25,40 @@
         </div>
     </div> 
 
-
-    <mat-table #table [dataSource] = "dataSource">
-        <ng-container matColumnDef="select">
-            <mat-header-cell *matHeaderCellDef>
-                <mat-checkbox (change)="$event ? masterToggle() : null" 
-                    [checked]="selection.hasValue() && isAllSelected()" 
-                    [indeterminate]="selection.hasValue() && !isAllSelected()">
-                </mat-checkbox>
-            </mat-header-cell>
-            <mat-cell *matCellDef="let row">
-                <mat-checkbox (click)="$event.stopPropagation()" 
-                    (change)="$event ? selection.toggle(row) : null" 
-                    [checked]="selection.isSelected(row)">
-                </mat-checkbox>
-            </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef> File name </mat-header-cell>
-            <mat-cell *matCellDef="let layer"> {{layer.name}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="type">
-            <mat-header-cell *matHeaderCellDef> Type </mat-header-cell>
-            <mat-cell *matCellDef="let layer"> {{layer.type}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="link">
-            <mat-header-cell *matHeaderCellDef> Link </mat-header-cell>
-            <mat-cell *matCellDef="let layer"> {{layer.link}} </mat-cell>
-        </ng-container>
-
-        <mat-header-row *matHeaderRowDef="columnDef"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: columnDef;"></mat-row>
-
-
-    </mat-table>
-    <mat-paginator #paginator 
-                [pageSize]="5" 
-                [pageSizeOptions]="[5]" 
-                [showFirstLastButtons]="true">
-    </mat-paginator>
+    <div *ngIf="layersData != null">
+        <mat-table #table [dataSource]="dataSource">
+            <ng-container matColumnDef="select">
+                <mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
+                    </mat-checkbox>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+                    </mat-checkbox>
+                </mat-cell>
+            </ng-container>
+        
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef> File name </mat-header-cell>
+                <mat-cell *matCellDef="let layer"> {{layer.name}} </mat-cell>
+            </ng-container>
+        
+            <ng-container matColumnDef="type">
+                <mat-header-cell *matHeaderCellDef> Type </mat-header-cell>
+                <mat-cell *matCellDef="let layer"> {{layer.type}} </mat-cell>
+            </ng-container>
+        
+            <ng-container matColumnDef="link">
+                <mat-header-cell *matHeaderCellDef> Link </mat-header-cell>
+                <mat-cell *matCellDef="let layer"> {{layer.link}} </mat-cell>
+            </ng-container>
+        
+            <mat-header-row *matHeaderRowDef="columnDef"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: columnDef;"></mat-row>
+        
+        
+        </mat-table>
+        <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5]" [showFirstLastButtons]="true">
+        </mat-paginator>
+    </div>
 </div>
