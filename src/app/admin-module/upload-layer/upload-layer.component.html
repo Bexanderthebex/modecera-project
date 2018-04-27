@@ -1,6 +1,7 @@
+<h2 mat-dialog-title style="color: black;">UPLOAD LAYER</h2>
 <div class="mdl-grid">
   <div class="mdl-cell mdl-cell--3-col"></div>
-  <div  class="mdl-cell mdl-cell--6-col" style="margin-top: 20vh;">
+  <div  class="mdl-cell mdl-cell--6-col" style="margin-top: 10vh;">
     <div class="mdl-grid">
       <div class="mdl-layout-spacer"></div>
       <div *ngIf="fileSelected">
@@ -13,7 +14,7 @@
     </div>
     <div class="mdl-grid" style="margin-top: 20px;">
       <div class="mdl-layout-spacer"></div>
-      <div class="mdl-cell mdl-cell--6-col">
+      <div>
         <label class="mdl-button mdl-button--colored mdl-js-button mdl-button--raised mdl-js-ripple-effect">
           Browse
           <input type="file" style="display: none;" (change)="onFileSelected($event)">
@@ -30,6 +31,7 @@
   </div>
   <div class="mdl-cell mdl-cell--3-col"></div>
 </div>
+
 
 
 

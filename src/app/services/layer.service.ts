@@ -11,6 +11,8 @@ export class LayerService {
     return this.http.get(link, { responseType: "blob" });
   }
 
+  // uploadLayer(link)
+
   deleteLayer(toDelete: any) {
     let options = {
       headers: new HttpHeaders({

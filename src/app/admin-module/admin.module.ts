@@ -22,9 +22,11 @@ import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from "@angular/material/input";
 import { MatCheckboxModule } from "@angular/material/checkbox";
+import { MatDialogModule } from "@angular/material/dialog";
 
 import { MapService } from "../services/map.service";
 import { LayerService } from "../services/layer.service";
+import { AddMapComponent } from './add-map/add-map.component';
 
 @NgModule({
   imports: [
@@ -39,13 +41,19 @@ import { LayerService } from "../services/layer.service";
     MatPaginatorModule,
     MatFormFieldModule,
     MatInputModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDialogModule
   ],
   declarations: [
     DashboardComponent,
     LayerlistComponent,
     UploadLayerComponent,
-    MapListComponent
+    MapListComponent,
+    AddMapComponent
+  ],
+  entryComponents: [
+    UploadLayerComponent,
+    AddMapComponent
   ],
   providers: [MapService, LayerService]
 })

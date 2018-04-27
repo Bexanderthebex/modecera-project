@@ -1,18 +1,72 @@
-<div style="overflow-y: auto; height: 70vh;">
-  <mat-list>
-    <div *ngFor="let data of dummyData">
-      <mat-list-item>
-        <mat-icon mat-list-icon class="mdl-color-text--teal-900">pin_drop</mat-icon>
-        <h4 mat-line>{{data.name}}</h4>
-        <p mat-line class="mdl-color-text--green-700"> {{data.type}} </p>
-        <button mat-icon-button matTooltip="edit map" [matTooltipPosition]=position>
-          <mat-icon>mode_edit</mat-icon>
-        </button>
-        <button mat-icon-button matTooltip="delete map" [matTooltipPosition]=position>
-          <mat-icon>delete</mat-icon>
-        </button>
-      </mat-list-item>
-      <mat-divider></mat-divider>
+<div style="overflow-y: auto; height: 60vh;">
+  <div class="example-header mdl-grid">
+    <div class="mdl-cell mdl-cell--1-col">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
     </div>
-  </mat-list>
+    <div class="mdl-cell mdl-cell--1-col"></div>
+    <div class="mdl-cell mdl-cell--6-col"></div>
+    <!-- TODO: show a dialog box when this is triggered -->
+    <div class="mdl-cell mdl-cell--1-col" >
+      <button mat-button class="mdl-color-text--primary" style="margin-right: 20px;">
+        <mat-icon>add</mat-icon>
+        Add Map
+      </button>
+    </div>
+    <div class="mdl-cell mdl-cell--1-col" style="margin-left: 40px;">
+      <button mat-button class="mdl-color-text--red-900"
+              (click)="deleteHandler()">
+        <mat-icon>delete</mat-icon>
+        Delete
+      </button>
+    </div>
+  </div>
+
+  <mat-table #table *ngIf="mapsLoaded" [dataSource]="dataSource">
+    <ng-container matColumnDef="select">
+      <mat-header-cell *matHeaderCellDef>
+        <mat-checkbox (change)="$event ? masterToggle() : null" 
+                      [checked]="selection.hasValue() && isAllSelected()" 
+                      [indeterminate]="selection.hasValue() && !isAllSelected()">
+        </mat-checkbox>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <mat-checkbox (click)="$event.stopPropagation()" 
+                      (change)="$event ? selection.toggle(row) : null" 
+                      [checked]="selection.isSelected(row)">
+        </mat-checkbox>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="map_name">
+      <mat-header-cell *matHeaderCellDef> Map name </mat-header-cell>
+      <mat-cell *matCellDef="let map"> {{map.map_name}} </mat-cell>
+      <mat-cell *matCellDef="let map"> {{map.link}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="access_token">
+      <mat-header-cell *matHeaderCellDef> Access token </mat-header-cell>
+      <mat-cell *matCellDef="let map"> {{map.access_token}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="attribution">
+      <mat-header-cell *matHeaderCellDef> Attribution </mat-header-cell>
+      <mat-cell *matCellDef="let map"> {{map.attribution}} </mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="link">
+      <mat-header-cell *matHeaderCellDef> Link </mat-header-cell>
+      <mat-cell *matCellDef="let map"> {{map.link}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columnDef"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnDef;"></mat-row>
+
+
+  </mat-table>
+  <mat-paginator #mapPaginator [pageSize]="5" 
+                  [pageSizeOptions]="[5]" 
+                [showFirstLastButtons]="true">
+  </mat-paginator>
 </div>

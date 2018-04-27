@@ -1,54 +1,64 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { LayerService } from "../../services/layer.service";
 import { saveAs as SaveAs} from "file-saver";
-import { MatPaginator, MatTableDataSource } from "@angular/material";
+import { 
+  MatPaginator, 
+  MatTableDataSource, 
+  MatDialog, 
+  MatDialogRef, 
+  MAT_DIALOG_DATA 
+} from "@angular/material";
 import { SelectionModel } from "@angular/cdk/collections";
-import { Observable } from 'rxjs/Observable';
+import { UploadLayerComponent } from "../upload-layer/upload-layer.component";
 
 @Component({
   selector: "app-layer-list",
   templateUrl: "./layerlist.component.html",
   styleUrls: ["./layerlist.component.css"]
 })
-export class LayerlistComponent implements OnInit, AfterViewInit {
+export class LayerlistComponent implements OnInit {
   private layersLoaded: Boolean;
-  private layersData: any = null;
-  private columnDef: any = [];
+  private layersData: any;
+  private columnDef: any;
   private dataSource: any;
-  selection = new SelectionModel<Element>(true, []);
-  position = "above";
+  private selection = new SelectionModel<Element>(true, []);
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('paginator') paginator: MatPaginator;
 
-  constructor(private layerService: LayerService) {
-
-    this.columnDef = ["select", "name", "type", "link"];
+  constructor(private layerService: LayerService, public dialog: MatDialog) {
+    this.layersData = null;
+    this.columnDef = ["select", "name", "link"];
+    this.layersLoaded = false;
   }
 
   ngOnInit() {
     this.layerService.getAllLayers().subscribe( (data) => {
-      console.log(data);
       this.layersData = data;
       this.dataSource = new MatTableDataSource<Element>(this.layersData);
+      this.dataSource.paginator = this.paginator;
       this.layersLoaded = true;
     }, error => {
       console.log(error);
     })
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+  openUploadLayer(): void {
+    let dialogRef = this.dialog.open(UploadLayerComponent, {
+      height: '400px',
+      width: '600px'
+    })
   }
 
   deleteHandler(): void {
     this.layerService.deleteLayer(this.selection.selected.map(layer => {
-        return { _id: layer["_id"], name: layer["name"], bucket: layer["bucket"] };
+        return { _id: layer["_id"]};
       })).subscribe( data => {
             this.layerService.getAllLayers().subscribe(data => {
                 console.log(data);
                 this.layersData = data;
                 this.dataSource = new MatTableDataSource<Element>(this.layersData);
-                // this.layersLoaded = Promise.resolve(true);
+                this.dataSource.paginator = this.paginator;
+                this.selection.clear()
               }, error => {
                 console.log(error);
               });
