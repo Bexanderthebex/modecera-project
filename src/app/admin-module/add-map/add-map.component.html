@@ -1,1 +1,42 @@
 <h2 mat-dialog-title style="color: black;">ADD MAP</h2>
+<mat-dialog-content>
+    <div [formGroup]="addMap">
+        <form action="#">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="mapname" [formControl]="addMap.controls['map_name']">
+                <label class="mdl-textfield__label" for="mapname">Map Name</label>
+            </div>
+        </form>
+        <form action="#">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="accesstoken" [formControl]="addMap.controls['access_token']">
+                <label class="mdl-textfield__label" for="accesstoken">Access Token</label>
+            </div>
+        </form>
+        <form action="#">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="attribution" [formControl]="addMap.controls['attribution']">
+                <label class="mdl-textfield__label" for="attribution">Attribution</label>
+            </div>
+        </form>
+        <form action="#">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="link" [formControl]="addMap.controls['link']">
+                <label class="mdl-textfield__label" for="link">Link</label>
+            </div>
+        </form>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+    <button mat-raised-button [mat-dialog-close]="true"
+            class="mdl-color--red-800 mdl-color-text--white">
+        Cancel
+    </button>
+    <button mat-raised-button mat-dialog-
+            (click)="requestAddMap(addMap.value)"
+            class="mdl-color--indigo-700 mdl-color-text--white">
+        Add
+    </button>
+</mat-dialog-actions>

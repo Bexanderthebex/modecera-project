@@ -51,10 +51,9 @@ export class LayerlistComponent implements OnInit {
 
   deleteHandler(): void {
     this.layerService.deleteLayer(this.selection.selected.map(layer => {
-        return { _id: layer["_id"]};
+        return { _id: layer["_id"], name: layer["name"]};
       })).subscribe( data => {
             this.layerService.getAllLayers().subscribe(data => {
-                console.log(data);
                 this.layersData = data;
                 this.dataSource = new MatTableDataSource<Element>(this.layersData);
                 this.dataSource.paginator = this.paginator;

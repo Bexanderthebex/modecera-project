@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterLinkActive } from "@angular/router";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { LayerlistComponent } from "./layerlist/layerlist.component";
@@ -42,7 +43,9 @@ import { AddMapComponent } from './add-map/add-map.component';
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,
-    MatDialogModule
+    MatDialogModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
     DashboardComponent,
@@ -51,10 +54,7 @@ import { AddMapComponent } from './add-map/add-map.component';
     MapListComponent,
     AddMapComponent
   ],
-  entryComponents: [
-    UploadLayerComponent,
-    AddMapComponent
-  ],
+  entryComponents: [UploadLayerComponent, AddMapComponent],
   providers: [MapService, LayerService]
 })
 export class AdminModule {}

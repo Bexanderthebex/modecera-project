@@ -8,15 +8,19 @@ export class MapService {
   constructor(private http: HttpClient) {}
 
   /* Rename to getTileLayers */
-  getTileLayer(url: string): any {
+  getTileLayer(url: string): Observable<Object> {
     return this.http.get(url);
   }
 
-  getMaps(): any {
+  getMaps(): Observable<Object> {
     return this.http.get("http://localhost:3000/api/maps");
   }
 
-  deleteLayer(toDelete: any) {
+  addMap(map: any): Observable<Object> {
+    return this.http.post("http://localhost:3000/api/maps", map);
+  }
+
+  deleteMap(toDelete: any) {
     let options = {
       headers: new HttpHeaders({
         "Content-Type": "application/json"

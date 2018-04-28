@@ -46,14 +46,37 @@ export class MapListComponent implements OnInit {
 
   openAddMap(): void {
     let dialogRef = this.dialog.open(AddMapComponent, {
-      height: '400px',
+      height: '420px',
       width: '600px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      this.addMapHandler(result);
     })
+  }
+
+  addMapHandler(value: any): void {
+    this.mapService
+      .addMap(value)
+      .subscribe(result => {
+          this.mapService.getMaps().subscribe(data => {
+              console.log(data);
+              this.mapsData = data;
+              this.dataSource = new MatTableDataSource<Element>(this.mapsData);
+              this.dataSource.paginator = this.mapPaginator;
+              this.selection.clear();
+            }, error => {
+              console.log(error);
+            });
+        }, error => {
+          console.log(error);
+        })
   }
 
   deleteHandler(): void {
     this.mapService
-      .deleteLayer(this.selection.selected.map(map => {
+      .deleteMap(this.selection.selected.map(map => {
           return { _id: map["_id"] };
         }))
       .subscribe(data => {
