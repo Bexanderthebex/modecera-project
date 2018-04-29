@@ -5,11 +5,15 @@ import {
   MatPaginator, 
   MatTableDataSource, 
   MatDialog, 
-  MatDialogRef, 
+  MatDialogRef,
+  MatSnackBar, 
   MAT_DIALOG_DATA 
 } from "@angular/material";
 import { SelectionModel } from "@angular/cdk/collections";
 import { UploadLayerComponent } from "../upload-layer/upload-layer.component";
+import "rxjs/add/operator/catch";
+import { Observable } from "rxjs/Observable";
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: "app-layer-list",
@@ -25,7 +29,11 @@ export class LayerlistComponent implements OnInit {
 
   @ViewChild('paginator') paginator: MatPaginator;
 
-  constructor(private layerService: LayerService, public dialog: MatDialog) {
+  constructor(
+    private layerService: LayerService, 
+    public dialog: MatDialog, 
+    public snackbar: MatSnackBar
+  ) {
     this.layersData = null;
     this.columnDef = ["select", "name", "link"];
     this.layersLoaded = false;
@@ -46,7 +54,27 @@ export class LayerlistComponent implements OnInit {
     let dialogRef = this.dialog.open(UploadLayerComponent, {
       height: '400px',
       width: '600px'
-    })
+    });
+
+   dialogRef.afterClosed()
+    .subscribe(res => {
+      console.log(res);
+      if(res.error && res != null) {
+        this.snackbar.open(res.error.message);
+      } else {
+        this.layerService.getAllLayers().subscribe(data => {
+            if(data.error) {
+              this.snackbar.open(data.error.message);
+            } else {
+              this.layersData = data;
+              this.dataSource = new MatTableDataSource<Element>(this.layersData);
+              this.dataSource.paginator = this.paginator;
+              this.selection.clear();
+              this.snackbar.open('successfully added map');
+            }
+          });
+      }
+    });
   }
 
   deleteHandler(): void {
@@ -59,10 +87,10 @@ export class LayerlistComponent implements OnInit {
                 this.dataSource.paginator = this.paginator;
                 this.selection.clear()
               }, error => {
-                console.log(error);
+                this.snackbar.open(error);
               });
       }, error => {
-        console.log(error)
+        this.snackbar.open(error);
       });
   }
 

@@ -5,7 +5,8 @@ import {
   MatTableDataSource,
   MatDialog,
   MatDialogRef,
-  MAT_DIALOG_DATA
+  MAT_DIALOG_DATA,
+  MatSnackBar
 } from "@angular/material";
 import { SelectionModel } from "@angular/cdk/collections";
 import { AddMapComponent } from "../add-map/add-map.component";
@@ -24,7 +25,12 @@ export class MapListComponent implements OnInit {
 
   @ViewChild('mapPaginator') mapPaginator: MatPaginator;
 
-  constructor(private mapService: MapService, public dialog: MatDialog) {
+  constructor(
+    private mapService: MapService, 
+    public dialog: MatDialog, 
+    public snackbar: MatSnackBar
+    ) 
+  {
     this.mapsLoaded = false;
     this.mapsData = null;
     this.columnDef = ["select", "map_name", "access_token", "attribution", "link"];
@@ -47,11 +53,10 @@ export class MapListComponent implements OnInit {
   openAddMap(): void {
     let dialogRef = this.dialog.open(AddMapComponent, {
       height: '420px',
-      width: '600px'
+      width: '450px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       this.addMapHandler(result);
     })
   }
@@ -60,16 +65,18 @@ export class MapListComponent implements OnInit {
     this.mapService
       .addMap(value)
       .subscribe(result => {
+          this.snackbar.open('Successfully added Map');
           this.mapService.getMaps().subscribe(data => {
-              console.log(data);
               this.mapsData = data;
               this.dataSource = new MatTableDataSource<Element>(this.mapsData);
               this.dataSource.paginator = this.mapPaginator;
               this.selection.clear();
             }, error => {
+              this.snackbar.open('An error occured in fetching list of maps');
               console.log(error);
             });
         }, error => {
+          this.snackbar.open('Map was not successfully added');
           console.log(error);
         })
   }
@@ -80,16 +87,18 @@ export class MapListComponent implements OnInit {
           return { _id: map["_id"] };
         }))
       .subscribe(data => {
+          this.snackbar.open("Successfully deleted Map/s");
           this.mapService.getMaps().subscribe(data => {
-              console.log(data);
               this.mapsData = data;
               this.dataSource = new MatTableDataSource<Element>(this.mapsData);
               this.dataSource.paginator = this.mapPaginator;
               this.selection.clear();
             }, error => {
+
               console.log(error);
             });
         }, error => {
+          this.snackbar.open('an error occured')
           console.log(error);
         });
   }

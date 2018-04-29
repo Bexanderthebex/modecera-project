@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpErrorResponse } from "@angular/common/http";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 
 @Component({
@@ -9,13 +9,14 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 })
 export class UploadLayerComponent implements OnInit {
   fileSelected: File = null;
+  uploading: Boolean;
 
   constructor(
     private http: HttpClient,
     public dialogRef: MatDialogRef<UploadLayerComponent>,
     @Inject(MAT_DIALOG_DATA) public data:any) 
   { 
-    
+    this.uploading = false;
   }
 
   ngOnInit() {
@@ -28,10 +29,17 @@ export class UploadLayerComponent implements OnInit {
   onFileUpload() {
     const fd = new FormData();
     fd.append('sample', this.fileSelected, this.fileSelected.name);
+    this.uploading = true;
     /* make a service method for this if possible */
     this.http.post('http://localhost:3000/api/layers/upload', fd)
       .subscribe(res => {
-        console.log(res);
-      })
+        this.dialogRef.close({message: "successfully added map", code: 204});
+      },
+      error => {
+        console.log("pumasok sa error");
+        console.log(error);
+        this.dialogRef.close(error);
+      } 
+    )
   }
 }
