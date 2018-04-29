@@ -101,12 +101,9 @@ export class MapComponent implements OnInit {
     this.map.flyToBounds(bounds);
   }
 
-  private drawActionHandler(drawAction: fromModels.DrawAction): void {
-    fromModels.DrawFactoryPattern
-        .DrawFactory.createDrawAction(drawAction.type, this.map);
-  }
+  // private drawActionHandler(drawAction: fromModels.DrawAction): void {
+  //   fromModels.DrawFactoryPattern
+  //       .DrawFactory.createDrawAction(drawAction.type, this.map);
+  // }
 
-  private drawCircle(): void {
-    new L.Draw.Circle(this.map).enable();
-  }
 }

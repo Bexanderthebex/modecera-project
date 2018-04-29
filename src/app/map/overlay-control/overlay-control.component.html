@@ -6,12 +6,12 @@
             </mat-slide-toggle>
         </span>
     </span>
-    <button mat-raised-button [matMenuTriggerFor]="menu">
+    <!-- <button mat-raised-button [matMenuTriggerFor]="menu">
         analysis
     </button>
     <mat-menu #menu="matMenu" xPosition="after">
         <button (click)="emitPolygonAction()" mat-menu-item>area</button>
-    </mat-menu>
+    </mat-menu> -->
     <span class="mdl-list__item-secondary-action" matTooltip="Go to layer">
         <button mat-icon-button class="mdl-color-text--teal"
                 (click)="emitLayerBounds()" disabled={{!overlayControlShow}}>

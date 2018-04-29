@@ -25,10 +25,10 @@ export class OverlayControlComponent implements OnInit, OnChanges{
   >();
   @Output()
   boundsEmitter: EventEmitter<any> = new EventEmitter<any>();
-  @Output()
-  drawEmitter: EventEmitter<fromModels.DrawAction> = new EventEmitter<
-    fromModels.DrawAction
-  >();
+  // @Output()
+  // drawEmitter: EventEmitter<fromModels.DrawAction> = new EventEmitter<
+  //   fromModels.DrawAction
+  // >();
   @ViewChild('slideToggle') slideToggle: MatSlideToggle;
 
 
@@ -79,18 +79,18 @@ export class OverlayControlComponent implements OnInit, OnChanges{
     this.boundsEmitter.emit(this.layer.data.getBounds());
   }
 
-  private emitPolygonAction(event: any): void {
-    this.slideToggle.checked = true;
-    let element: HTMLElement = document.getElementById(this.layer.name) as HTMLElement;
-    element.click();
+  // private emitPolygonAction(event: any): void {
+  //   this.slideToggle.checked = true;
+  //   let element: HTMLElement = document.getElementById(this.layer.name) as HTMLElement;
+  //   element.click();
 
-    this.emitLayerBounds();
+  //   this.emitLayerBounds();
 
-    let action: fromModels.DrawAction = {
-      name: fromModels.DRAW_ADD,
-      type: fromModels.POLYGON,
-    }
-    this.drawEmitter.emit(action);
-  }
+  //   let action: fromModels.DrawAction = {
+  //     name: fromModels.DRAW_ADD,
+  //     type: fromModels.POLYGON,
+  //   }
+  //   this.drawEmitter.emit(action);
+  // }
 
 }
