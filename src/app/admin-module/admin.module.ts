@@ -26,6 +26,7 @@ import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { MatMenuModule } from "@angular/material/menu";
 
 import { MapService } from "../services/map.service";
 import { LayerService } from "../services/layer.service";
@@ -47,6 +48,7 @@ import { AddMapComponent } from './add-map/add-map.component';
     MatCheckboxModule,
     MatDialogModule,
     MatSnackBarModule,
+    MatMenuModule,
     FormsModule,
     MatProgressBarModule, 
     ReactiveFormsModule

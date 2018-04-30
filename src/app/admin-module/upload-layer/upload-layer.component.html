@@ -1,6 +1,18 @@
 <h2 mat-dialog-title style="color: black;">UPLOAD LAYER</h2>
 <div class="mdl-grid">
-  <div class="mdl-cell mdl-cell--3-col"></div>
+  <div class="mdl-cell mdl-cell--3-col">
+    <button mat-raised-button [matMenuTriggerFor]="menu"
+             matTooltip="Choose layer group" [matTooltipPosition]="tooltipPosition"
+             class="mdl-color--primary mdl-color-text--white">
+      {{selectedLayer}}
+      <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="selectedLayer = 'Watersheds'">Watersheds</button>
+      <button mat-menu-item (click)="selectedLayer = 'Markers'">Markers</button>
+      <button mat-menu-item (click)="selectedLayer = 'Others'">Others</button>
+    </mat-menu>
+  </div>
   <div  class="mdl-cell mdl-cell--6-col" style="margin-top: 10vh;">
     <div class="mdl-grid">
       <div class="mdl-layout-spacer"></div>

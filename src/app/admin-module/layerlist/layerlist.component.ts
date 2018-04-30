@@ -35,7 +35,7 @@ export class LayerlistComponent implements OnInit {
     public snackbar: MatSnackBar
   ) {
     this.layersData = null;
-    this.columnDef = ["select", "name", "link"];
+    this.columnDef = ["select", "name", "labelGroup" ,"link"];
     this.layersLoaded = false;
   }
 

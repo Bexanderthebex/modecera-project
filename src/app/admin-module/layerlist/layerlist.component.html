@@ -50,6 +50,11 @@
             <mat-header-cell *matHeaderCellDef> File name </mat-header-cell>
             <mat-cell *matCellDef="let layer"> {{layer.name}} </mat-cell>
         </ng-container>
+
+        <ng-container matColumnDef="labelGroup">
+            <mat-header-cell *matHeaderCellDef> Link </mat-header-cell>
+            <mat-cell *matCellDef="let layer"> {{layer.label_group}} </mat-cell>
+        </ng-container>
     
         <ng-container matColumnDef="link">
             <mat-header-cell *matHeaderCellDef> Link </mat-header-cell>
