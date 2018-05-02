@@ -12,25 +12,30 @@ import * as L from "leaflet";
 import { MapService } from '../../services/map.service';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 
+L.Icon.Default.imagePath = ".";
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: "/assets/images/marker-icon-2x.png",
+  iconUrl: "/assets/images/marker-icon.png",
+  shadowUrl: "/assets/images/marker-shadow.png"
+});
+
 @Component({
-  selector: 'app-overlay-control',
-  templateUrl: './overlay-control.component.html',
-  styleUrls: ['./overlay-control.component.css']
+  selector: "app-overlay-control",
+  templateUrl: "./overlay-control.component.html",
+  styleUrls: ["./overlay-control.component.css"]
 })
-export class OverlayControlComponent implements OnInit, OnChanges{
-  @Input() layer: fromModels.OverlayFactoryPattern.Overlay;
-  @Output() 
+export class OverlayControlComponent implements OnInit, OnChanges {
+  @Input() layer: any;
+  @Output()
   layerEmitter: EventEmitter<fromModels.OverlayAction> = new EventEmitter<
     fromModels.OverlayAction
   >();
-  @Output()
-  boundsEmitter: EventEmitter<any> = new EventEmitter<any>();
+  @Output() boundsEmitter: EventEmitter<any> = new EventEmitter<any>();
   // @Output()
   // drawEmitter: EventEmitter<fromModels.DrawAction> = new EventEmitter<
   //   fromModels.DrawAction
   // >();
-  @ViewChild('slideToggle') slideToggle: MatSlideToggle;
-
+  @ViewChild("slideToggle") slideToggle: MatSlideToggle;
 
   private overlayControlShow: boolean;
   private layerObject: any;
@@ -39,37 +44,48 @@ export class OverlayControlComponent implements OnInit, OnChanges{
     this.overlayControlShow = false;
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   ngOnChanges() {
-    this.mapService.getTileLayer(this.layer.link).subscribe(
-      (data: any) => {
-        this.layerObject = fromModels.OverlayFactoryPattern
-            .DataFactory.createOverlay(this.layer.type);
-        this.layer.data = this.layerObject.create(data);
-      }
-    )
+    this.mapService.getTileLayer(this.layer.link).subscribe((data: any) => {
+      this.layer.data = L.geoJSON(data, {
+        onEachFeature: (feature, layer) => {
+          let propertyKeys = Object.keys(feature.properties);
+          let popupString = "";
+          propertyKeys.forEach(propertyKey => {
+            popupString =
+              popupString +
+              propertyKey +
+              ": " +
+              feature.properties[propertyKey] +
+              "</br>";
+          });
+
+          layer.bindPopup("<p>" + popupString + "<p>");
+        }
+      });
+    });
   }
 
   private toggleShow(): void {
     this.overlayControlShow = !this.overlayControlShow;
-    console.log(this.overlayControlShow);
+    // console.log(this.overlayControlShow);
   }
 
   private emitLayer(): void {
     let overlayAction: fromModels.OverlayAction;
 
     this.toggleShow();
-    if(this.overlayControlShow) {
+    if (this.overlayControlShow) {
       overlayAction = {
         action: fromModels.OVERLAY_ADD,
         overlay: this.layer
-      }
+      };
     } else {
       overlayAction = {
         action: fromModels.OVERLAY_REMOVE,
         overlay: this.layer
-      }
+      };
     }
 
     this.layerEmitter.emit(overlayAction);
@@ -92,5 +108,4 @@ export class OverlayControlComponent implements OnInit, OnChanges{
   //   }
   //   this.drawEmitter.emit(action);
   // }
-
 }

@@ -1,26 +1,33 @@
-<button class="layergroup-button mdl-button mdl-js-button mdl-list__item">
-    <span class="mdl-list__item-primary-content">
-        {{componentName}}
-    </span>
-    <span class="mdl-list__item-secondary-action"
-            style="position: absolute; right: 10px;">
-        <i class="material-icons"
-            [hidden]="showChild()" 
-            (click)="clickShow()">
-            arrow_drop_down
-        </i>
-        <i class="material-icons" 
-            [hidden]="!showChild()" 
-            (click)="clickShow()">
-            arrow_drop_up
-        </i>
-    </span>
-</button>
-<app-overlay-control *ngFor="let layer of overlay.value" 
-    [hidden]="!showChild()" 
-    [layer]="layer" 
-    (layerEmitter)="emitLayer($event)"
-    (boundsEmitter)="emitLayerBounds($event)">
+<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+    <div class="mdl-tabs__tab-bar">
+        <a href="#watersheds-panel"  class="mdl-tabs__tab is-active">Watersheds</a>
+        <a href="#markers-panel" class="mdl-tabs__tab">Markers</a>
+        <a href="#others-panel" class="mdl-tabs__tab">Others</a>
+    </div>
+    
+    <div class="mdl-tabs__panel is-active" id="watersheds-panel"
+         style="height: 280px; overflow-y: scroll;">
+        <app-overlay-control *ngFor="let watershed of watersheds" 
+            [layer]="watershed" 
+            (layerEmitter)="emitLayer($event)"
+            (boundsEmitter)="emitLayerBounds($event)">
 
-</app-overlay-control>
+        </app-overlay-control>
+    </div>
+    <div class="mdl-tabs__panel" id="markers-panel"
+         style="height: 280px; overflow-y: scroll;">
+        <app-overlay-control *ngFor="let marker of markers" 
+            [layer]="marker" 
+            (layerEmitter)="emitLayer($event)"
+            (boundsEmitter)="emitLayerBounds($event)">
 
+        </app-overlay-control>
+    </div>
+    <div class="mdl-tabs__panel" id="others-panel"
+         style="height: 280px; overflow-y: scroll;">
+        <ul>
+            <li>Viserys</li>
+            <li>Daenerys</li>
+        </ul>
+    </div>
+</div>

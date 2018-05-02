@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import * as fromModels from '../../models';
+import { LayerService } from '../../services/layer.service';
 
 @Component({
   selector: 'app-overlay-parent',
@@ -7,36 +8,35 @@ import * as fromModels from '../../models';
   styleUrls: ['./overlay-parent.component.css']
 })
 export class OverlayParentComponent implements OnInit {
-  @Input() 
-  overlay: any;
   @Output() 
   layerEmitter: EventEmitter<fromModels.OverlayAction> = new EventEmitter<
     fromModels.OverlayAction
   >();
   @Output()
   boundsEmitter: EventEmitter<L.LatLngBounds> = new EventEmitter<L.LatLngBounds>();
+  @Output()
   // @Output()
   // drawEmitter: EventEmitter<fromModels.DrawAction> = new EventEmitter<
   //   fromModels.DrawAction
   // >();
-
-  private componentName: string;
   private show: boolean;
+  private watersheds: Array<Object>;
+  private markers: Array<Object>;
+  private others: Array<Object>;
 
-  constructor() {
+  constructor(private layerService: LayerService) {
     this.show = false;
   }
 
   ngOnInit() {
-    this.componentName = this.overlay.key;
-  }
+    /* options - Watersheds | Markers | Others*/
+    this.layerService.getLayerByLabelGroup("Watersheds").subscribe(res => {
+      this.watersheds = res;
+    })
 
-  private clickShow(): void {
-    this.show = !this.show;
-  }
-
-  private showChild(): boolean {
-    return this.show;
+    this.layerService.getLayerByLabelGroup("Markers").subscribe(res => {
+      this.markers = res;
+    })
   }
 
   private emitLayer(event: fromModels.OverlayAction): void {

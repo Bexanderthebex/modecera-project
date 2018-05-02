@@ -31,6 +31,13 @@ export class LayerService {
       .catch(this.errorHandler);
   }
 
+  getLayerByLabelGroup(label: String) {
+    let payload = {label_group: label}
+
+    return this.http.post("http://localhost:3000/api/layers/labelgroup", payload)
+                    .catch(this.errorHandler);
+  }
+
   errorHandler(error: HttpErrorResponse) {
     return Observable.throw(error.message || "Server Error");
   }

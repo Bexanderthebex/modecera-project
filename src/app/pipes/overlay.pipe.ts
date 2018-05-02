@@ -7,6 +7,7 @@ export class OverlayPipe implements PipeTransform {
         for (let key in value) {
             keys.push({ key: key, value: value[key] });
         }
+        console.log(keys);
         return keys;
     }
 }
