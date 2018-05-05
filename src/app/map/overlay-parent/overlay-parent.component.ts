@@ -37,6 +37,10 @@ export class OverlayParentComponent implements OnInit {
     this.layerService.getLayerByLabelGroup("Markers").subscribe(res => {
       this.markers = res;
     })
+
+    this.layerService.getLayerByLabelGroup("Others").subscribe(res => {
+      this.others = res;
+    })
   }
 
   private emitLayer(event: fromModels.OverlayAction): void {

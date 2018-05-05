@@ -24,6 +24,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatListModule } from "@angular/material/list";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatExpansionModule } from "@angular/material/expansion";
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -48,6 +49,7 @@ import { AppRoutingModule } from './app-routing.module';
     MatIconModule,
     MatListModule,
     MatMenuModule,
+    MatExpansionModule,
     AppRoutingModule
   ],
   providers: [MapService, LayerService],
