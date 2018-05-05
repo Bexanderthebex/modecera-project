@@ -1,0 +1,39 @@
+<h2 mat-dialog-title style="color: black;">Request Map</h2>
+<mat-dialog-content>
+  <div [formGroup]="requestMap">
+    <form action="#">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" type="emai" id="email" [formControl]="requestMap.controls['email']">
+        <label class="mdl-textfield__label" for="email">Email</label>
+      </div>
+    </form>
+
+    <form action="#">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" type="text" id="maptorequest" [formControl]="requestMap.controls['mapToRequest']">
+        <label class="mdl-textfield__label" for="maptorequest">Map To Request</label>
+      </div>
+    </form>
+
+    <form action="#">
+      <div class="mdl-textfield mdl-js-textfield">
+        <textarea class="mdl-textfield__input" type="text" rows="3" id="requestReason"></textarea>
+        <label class="mdl-textfield__label" for="requestReason">Request reason</label>
+      </div>
+    </form>
+
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button [mat-dialog-close]="true"
+        class="mdl-color--red-800 mdl-color-text--white">
+      Cancel
+  </button>
+  <div class="mdl-layout-spacer"></div>
+  <button mat-raised-button mat-dialog-
+          (click)="requestAddMap(addMap.value)"
+          class="mdl-color--teal-900 mdl-color-text--white">
+      Request
+  </button>
+</mat-dialog-actions>

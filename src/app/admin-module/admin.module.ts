@@ -17,6 +17,7 @@ import { MatDividerModule } from "@angular/material/divider";
 /*  */
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatTableModule } from "@angular/material/table";
 import { MatPaginatorModule } from "@angular/material/paginator";
@@ -50,7 +51,8 @@ import { AddMapComponent } from './add-map/add-map.component';
     MatSnackBarModule,
     MatMenuModule,
     FormsModule,
-    MatProgressBarModule, 
+    MatProgressBarModule,
+    MatButtonToggleModule, 
     ReactiveFormsModule
   ],
   declarations: [

@@ -7,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
   // tooltip position
-  position = "before"
+  private position = "before";
+  private isSystemData = true;
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  private toggleEventHandler(event: any): void {
+    this.isSystemData = !this.isSystemData;
   }
 }

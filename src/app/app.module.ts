@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { StoreModule } from '@ngrx/store';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
@@ -25,8 +25,10 @@ import { MatListModule } from "@angular/material/list";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from "@angular/material/expansion";
+import { MatDialogModule } from "@angular/material/dialog";
 
 import { AppRoutingModule } from './app-routing.module';
+import { RequestMapComponent } from './map/request-map/request-map.component';
 
 
 
@@ -38,6 +40,7 @@ import { AppRoutingModule } from './app-routing.module';
     OverlayControlComponent,
     OverlayParentComponent,
     OverlayPipe,
+    RequestMapComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,9 +53,13 @@ import { AppRoutingModule } from './app-routing.module';
     MatListModule,
     MatMenuModule,
     MatExpansionModule,
+    MatDialogModule,
+    FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule
   ],
   providers: [MapService, LayerService],
+  entryComponents: [RequestMapComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

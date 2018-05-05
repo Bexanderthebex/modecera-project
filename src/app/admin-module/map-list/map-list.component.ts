@@ -5,7 +5,6 @@ import {
   MatTableDataSource,
   MatDialog,
   MatDialogRef,
-  MAT_DIALOG_DATA,
   MatSnackBar
 } from "@angular/material";
 import { SelectionModel } from "@angular/cdk/collections";

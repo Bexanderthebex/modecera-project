@@ -1,5 +1,5 @@
 <!-- Always shows a header, even in smaller screens. -->
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer">
   <header class="mdl-layout__header mdl-color--white">
     <div class="mdl-layout__header-row">
       <!-- Title -->
@@ -8,32 +8,36 @@
       </span>
       <!-- Add spacer, to align navigation to the right -->
       <div class="mdl-layout-spacer"></div>
-      <!-- Navigation. We hide it in small screens. -->
-      <!-- <nav class="mdl-navigation mdl-layout--large-screen-only">
-        <a class="mdl-navigation__link mdl-color-text--black
-          mdl-js-button mdl-js-ripple-effect">Sign in</a>
-      </nav> -->
     </div>
   </header>
-  <!-- <div class="mdl-layout__drawer mdl-layout--small-screen-only">
-    <span class="mdl-layout-title mdl-color--white">
-      <img src="../assets/download.png" width="150" height="50" alt="">
+  <div class="mdl-layout__drawer mdl-color--white mdl-color-text--black">
+    <span class="mdl-layout-title">
+      <i class="material-icons">account_circle</i>
+      Admin Name
     </span>
     <nav class="mdl-navigation">
-      <a class="mdl-navigation__link" href="">Link</a>
-      <a class="mdl-navigation__link" href="">Link</a>
-      <a class="mdl-navigation__link" href="">Link</a>
-      <a class="mdl-navigation__link" href="">Link</a>
+      <mat-button-toggle-group [vertical]=true name="adminFunctions" 
+                               aria-label="Admin Functions"
+                               (change)="toggleEventHandler($event)">
+        <mat-button-toggle value="view system data"
+            class="mdl-color-text--black" 
+            style="text-align: center; height: 50px;"
+            [checked]=true>
+            System Data
+        </mat-button-toggle>
+        <mat-button-toggle value="view map requests"
+            class="mdl-color-text--black" 
+            style="text-align: center; height: 50px;">
+            Map Requests
+        </mat-button-toggle>
+      </mat-button-toggle-group>
     </nav>
-  </div> -->
+  </div>
   <main class="mdl-layout__content">
     <div class="mdl-grid">
-      <div class="mdl-cell mdl-cell--2-col">
-        <h3 style="float: right;">Admin Page</h3>
-      </div>
-      <div class="mdl-cell mdl-cell--1-col"></div>
-      <div class="mdl-cell mdl-cell--6-col">
-        <mat-tab-group>
+      <div class="mdl-cell mdl-cell--2-col"></div>
+      <div class="mdl-cell mdl-cell--8-col">
+        <mat-tab-group [hidden]="!isSystemData">
           <mat-tab label="Layers">
             <app-layer-list></app-layer-list>
           </mat-tab>
@@ -42,7 +46,7 @@
           </mat-tab>
         </mat-tab-group>
       </div>
-      <div class="mdl-cell mdl-cell--3-col"></div>
+      <div class="mdl-cell mdl-cell--2-col"></div>
     </div>
   </main>
 </div>

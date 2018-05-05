@@ -9,6 +9,11 @@ import * as L from 'leaflet';   // import all components of leaflet and not just
 // remember to put the access tokens into the productions enviroment when deploying
 import { environment } from '../../environments/environment';
 import * as fromModels from '../models';
+import { RequestMapComponent } from "./request-map/request-map.component";
+import {
+  MatDialog,
+  MatDialogRef,
+} from "@angular/material";
 
 @Component({
   selector: "app-map",
@@ -24,7 +29,11 @@ export class MapComponent implements OnInit {
   private viewLayer: any;
 
   /* TODO: utilize MapService to fetch shape files */
-  constructor(private mapService: MapService) {
+  constructor(
+    private mapService: MapService, 
+    public dialog: MatDialog
+  ) 
+  {
     this.basemaps = null;
 
     this.viewProperties = false;
@@ -74,6 +83,13 @@ export class MapComponent implements OnInit {
 
   private viewPropertiesHandler(event: any): void {
     this.map.removeLayer(event);
+  }
+
+  private openRequestMap(): void {
+    let dialogRef = this.dialog.open(RequestMapComponent, {
+      height: '420px',
+      width: '450px'
+    });
   }
 
   // private drawActionHandler(drawAction: fromModels.DrawAction): void {
