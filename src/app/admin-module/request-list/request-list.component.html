@@ -26,15 +26,18 @@
 
     <ng-container matColumnDef="request_approved">
       <mat-header-cell *matHeaderCellDef> Approval </mat-header-cell>
-      <mat-cell *matCellDef="let request"> {{request.request_approved}} </mat-cell>
+      <mat-cell *matCellDef="let request">  
+        <span class="mdl-color-text--teal-900" *ngIf="request.request_approved == true">approved</span>
+        <span class="mdl-color-text--yellow-900" *ngIf="request.request_approved == false">pending</span>
+      </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="approve_request">
       <mat-header-cell *matHeaderCellDef>Approve</mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <button mat-icon-button>
-          <mat-icon class="mdl-color-text--teal-900">
-            beenhere
+        <button mat-icon-button *ngIf="row.request_approved == false" (click)="approveRequest(row)">
+          <mat-icon class="mdl-color-text--indigo-900">
+            check_circle
           </mat-icon>
         </button>
       </mat-cell>

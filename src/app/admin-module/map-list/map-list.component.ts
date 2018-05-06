@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild, OnChanges, Input } from "@angular/core";
 import { MapService } from "../../services/map.service";
 import {
   MatPaginator,
@@ -15,13 +15,14 @@ import { AddMapComponent } from "../add-map/add-map.component";
   templateUrl: "./map-list.component.html",
   styleUrls: ["./map-list.component.css"]
 })
-export class MapListComponent implements OnInit {
+export class MapListComponent implements OnInit, OnChanges {
   private mapsLoaded: Boolean;
   private mapsData: any;
   private columnDef: any;
   private dataSource: any;
   private selection = new SelectionModel<Element>(true, []);
 
+  @Input() mapRequest: any;
   @ViewChild('mapPaginator') mapPaginator: MatPaginator;
 
   constructor(
@@ -30,6 +31,7 @@ export class MapListComponent implements OnInit {
     public snackbar: MatSnackBar
     ) 
   {
+    this.mapRequest = null;
     this.mapsLoaded = false;
     this.mapsData = null;
     this.columnDef = ["select", "map_name", "access_token", "attribution", "link"];
@@ -49,6 +51,12 @@ export class MapListComponent implements OnInit {
 
   }
 
+  ngOnChanges() {
+    if(this.mapRequest != null) {
+     this.addMapHandler(this.mapRequest);
+    }
+  }
+
   openAddMap(): void {
     let dialogRef = this.dialog.open(AddMapComponent, {
       height: '420px',
@@ -60,7 +68,7 @@ export class MapListComponent implements OnInit {
     })
   }
 
-  addMapHandler(value: any): void {
+  public addMapHandler(value: any): void {
     this.mapService
       .addMap(value)
       .subscribe(result => {

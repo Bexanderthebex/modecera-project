@@ -9,6 +9,8 @@ export class DashboardComponent implements OnInit {
   // tooltip position
   private position = "before";
   private isSystemData = true;
+  mapRequest: any = null;
+  layerRequest: any = null;
 
   constructor() { }
 
@@ -17,5 +19,13 @@ export class DashboardComponent implements OnInit {
 
   private toggleEventHandler(event: any): void {
     this.isSystemData = !this.isSystemData;
+  }
+
+  private requestHandler(event: any): void {
+    if (event.map_name) {
+      this.mapRequest = event;
+    } else {
+      this.layerRequest = event;
+    }
   }
 }

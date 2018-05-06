@@ -18,6 +18,11 @@ export class RequestService {
                .catch(this.errorHandler);
   }
 
+  approveRequest(requestBody: any) {
+    return this.http.put("http://localhost:3000/api/requests/approve", requestBody)
+               .catch(this.errorHandler);
+  }
+
   getAllRequest() {
     return this.http.get("http://localhost:3000/api/requests")
               .catch(this.errorHandler);

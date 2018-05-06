@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, OnChanges } from '@angular/core';
 import { LayerService } from "../../services/layer.service";
 import { saveAs as SaveAs} from "file-saver";
 import { 
@@ -20,13 +20,14 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: "./layerlist.component.html",
   styleUrls: ["./layerlist.component.css"]
 })
-export class LayerlistComponent implements OnInit {
+export class LayerlistComponent implements OnInit, OnChanges/* , AfterViewInit */ {
   private layersLoaded: Boolean;
   private layersData: any;
   private columnDef: any;
   private dataSource: any;
   private selection = new SelectionModel<Element>(true, []);
 
+  @Input() layerRequest: any;
   @ViewChild('paginator') paginator: MatPaginator;
 
   constructor(
@@ -34,6 +35,7 @@ export class LayerlistComponent implements OnInit {
     public dialog: MatDialog, 
     public snackbar: MatSnackBar
   ) {
+    this.layerRequest = null;
     this.layersData = null;
     this.columnDef = ["select", "name", "labelGroup" ,"link"];
     this.layersLoaded = false;
@@ -50,6 +52,20 @@ export class LayerlistComponent implements OnInit {
     })
   }
 
+  ngOnChanges() {
+    console.log(this.layerRequest);
+    if (this.layerRequest != null) {
+      this.openUploadLayer()
+    }
+  }
+
+  // ngAfterViewInit() {
+  //   console.log(this.layerRequest);
+  //   if (this.layerRequest != null) {
+  //     this.openUploadLayer();
+  //   }
+  // }
+
   openUploadLayer(): void {
     let dialogRef = this.dialog.open(UploadLayerComponent, {
       height: '400px',
@@ -58,7 +74,6 @@ export class LayerlistComponent implements OnInit {
 
    dialogRef.afterClosed()
     .subscribe(res => {
-      console.log(res);
       if(res.error && res != null) {
         this.snackbar.open(res.error.message, null, {
           duration: 2000
@@ -74,7 +89,8 @@ export class LayerlistComponent implements OnInit {
               this.dataSource = new MatTableDataSource<Element>(this.layersData);
               this.dataSource.paginator = this.paginator;
               this.selection.clear();
-              this.snackbar.open('successfully added map', null, {
+              this.layerRequest = null;
+              this.snackbar.open('successfully added layer', null, {
                 duration: 2000
               });
             }

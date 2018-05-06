@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild, Output, EventEmitter } from "@angular/core";
 import { RequestService } from "../../services/request.service";
 import {
   MatPaginator,
@@ -7,6 +7,8 @@ import {
   MatDialogRef,
   MatSnackBar
 } from "@angular/material";
+import { AddMapComponent } from "../add-map/add-map.component";
+import { UploadLayerComponent } from "../upload-layer/upload-layer.component";
 
 @Component({
   selector: "app-request-list",
@@ -18,6 +20,7 @@ export class RequestListComponent implements OnInit {
   private requestsData: any;
   private columnDef: any;
   private dataSource: any;
+  @Output() requestEmitter: EventEmitter<any> = new EventEmitter<any>();
 
   @ViewChild("requestPaginator") requestPaginator: MatPaginator;
 
@@ -40,7 +43,6 @@ export class RequestListComponent implements OnInit {
   ngOnInit() {
     this.requestService.getAllRequest().subscribe(
       data => {
-        console.log(data);
         this.requestsData = data;
         this.dataSource = new MatTableDataSource<Element>(this.requestsData);
         this.dataSource.paginator = this.requestPaginator;
@@ -50,6 +52,84 @@ export class RequestListComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  approveRequest(rowData: any) {
+    if(rowData.request_type == "MAP") {
+      let dialogRef = this.dialog.open(AddMapComponent, {
+        height: '420px',
+        width: '450px'
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          let approveRequestBody = {
+            _id: rowData._id,
+            email: rowData.requester_email_address
+          }
+          this.requestEmitter.emit(result);
+          this.requestService
+            .approveRequest(approveRequestBody)
+            .subscribe(
+              result => {
+                this.dataSource = new MatTableDataSource<Element>(
+                  this.requestsData.map(request => {
+                    if (request._id == result._id) {
+                      return result;
+                    }
+                    return request;
+                  })
+                );
+                this.snackbar.open(
+                  "Request Successfully Approved",
+                  null,
+                  {
+                    duration: 2000
+                  }
+                );
+              },
+              error => {
+                this.snackbar.open("an error occured", null, {
+                  duration: 2000
+                });
+              }
+            );
+        }
+      })
+    } else if(rowData.request_type == "LAYER") {
+      this.requestEmitter.emit(rowData);
+      // insert approve request service here
+      let approveRequestBody = {
+        _id: rowData._id,
+        email: rowData.requester_email_address
+      }
+      this.requestService
+        .approveRequest(approveRequestBody)
+        .subscribe(
+          result => {
+            this.dataSource = new MatTableDataSource<Element>(
+              this.requestsData.map(request => {
+                if (request._id == result._id) {
+                  return result;
+                }
+                return request;
+              })
+            );
+            this.snackbar.open(
+              "Request Successfully Approved",
+              null,
+              {
+                duration: 2000
+              }
+            );
+          },
+          error => {
+            this.snackbar.open("an error occured", null, {
+              duration: 2000
+            });
+          }
+        );
+    }
   }
 
   /* Paginator utils */
