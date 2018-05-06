@@ -10,18 +10,29 @@
 
     <form action="#">
       <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <input class="mdl-textfield__input" type="text" id="maptorequest" [formControl]="requestMap.controls['mapToRequest']">
-        <label class="mdl-textfield__label" for="maptorequest">Map To Request</label>
+        <input class="mdl-textfield__input" type="text" id="request" [formControl]="requestMap.controls['request']">
+        <label class="mdl-textfield__label" for="request">Map To Request</label>
       </div>
     </form>
 
     <form action="#">
-      <div class="mdl-textfield mdl-js-textfield">
-        <textarea class="mdl-textfield__input" type="text" rows="3" id="requestReason"></textarea>
-        <label class="mdl-textfield__label" for="requestReason">Request reason</label>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <textarea class="mdl-textfield__input" type="text" rows="3" id="reason" [formControl]="requestMap.controls['reason']"></textarea>
+        <label class="mdl-textfield__label" for="reason">Request reason</label>
       </div>
     </form>
-
+  </div>
+  <div>
+    <span style="margin-right: 20px;">Choose Request Type: </span>
+    <button mat-raised-button [matMenuTriggerFor]="menu" matTooltip="Choose request type" [matTooltipPosition]="tooltipPosition"
+      class="mdl-color--primary mdl-color-text--white">
+      {{requestType}}
+      <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="requestType = 'MAP'">MAP</button>
+      <button mat-menu-item (click)="requestType = 'LAYER'">LAYER</button>
+    </mat-menu>
   </div>
 </mat-dialog-content>
 
@@ -32,7 +43,7 @@
   </button>
   <div class="mdl-layout-spacer"></div>
   <button mat-raised-button mat-dialog-
-          (click)="requestAddMap(addMap.value)"
+          (click)="requestAddMap(requestMap.value)"
           class="mdl-color--teal-900 mdl-color-text--white">
       Request
   </button>

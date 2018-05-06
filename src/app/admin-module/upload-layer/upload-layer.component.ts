@@ -43,8 +43,6 @@ export class UploadLayerComponent implements OnInit {
         this.dialogRef.close({message: "successfully added map", code: 204});
       },
       error => {
-        console.log("pumasok sa error");
-        console.log(error);
         this.dialogRef.close(error);
       } 
     )

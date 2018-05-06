@@ -3,17 +3,14 @@ import {
   OnInit 
 } from '@angular/core';
 import { MapService } from '../services/map.service';
-import { LayerService } from '../services/layer.service';
+import { RequestService } from "../services/request.service";
 import * as L from 'leaflet';   // import all components of leaflet and not just 
                                 // exported 'namespace'
 // remember to put the access tokens into the productions enviroment when deploying
 import { environment } from '../../environments/environment';
 import * as fromModels from '../models';
 import { RequestMapComponent } from "./request-map/request-map.component";
-import {
-  MatDialog,
-  MatDialogRef,
-} from "@angular/material";
+import { MatDialog, MatDialogRef, MatSnackBar } from "@angular/material";
 
 @Component({
   selector: "app-map",
@@ -30,8 +27,10 @@ export class MapComponent implements OnInit {
 
   /* TODO: utilize MapService to fetch shape files */
   constructor(
-    private mapService: MapService, 
-    public dialog: MatDialog
+    private mapService: MapService,
+    private requestService: RequestService, 
+    public dialog: MatDialog,
+    private snackbar: MatSnackBar
   ) 
   {
     this.basemaps = null;
@@ -87,9 +86,35 @@ export class MapComponent implements OnInit {
 
   private openRequestMap(): void {
     let dialogRef = this.dialog.open(RequestMapComponent, {
-      height: '420px',
-      width: '450px'
+      height: '470px',
+      width: '450px',
     });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.requestMapHandler(result);
+    })
+  }
+
+  private requestMapHandler(value: any) : void {
+    let body = {
+      email: value.email,
+      request: value.request,
+      request_type: value.requestType,
+      request_reason: value.reason
+    }
+
+    this.requestService
+        .requestMap(body)
+        .subscribe(result => {
+          this.snackbar.open(result.message, null, {
+            duration: 2000
+          })
+        }, error => {
+          console.log(JSON.stringify(error));
+          this.snackbar.open(error, null, {
+            duration: 2000
+          })
+        })
   }
 
   // private drawActionHandler(drawAction: fromModels.DrawAction): void {

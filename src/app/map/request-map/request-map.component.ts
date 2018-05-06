@@ -9,6 +9,8 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 })
 export class RequestMapComponent implements OnInit {
   private requestMap: FormGroup;
+  private requestType: String;
+  tooltipPosition: String = 'above';
 
   constructor(
     private fb: FormBuilder,
@@ -16,10 +18,17 @@ export class RequestMapComponent implements OnInit {
   ) {
     this.requestMap = fb.group({
       'email': '',
-      'mapToRequest': '',
+      'request': '',
       'reason': ''
-    })
+    });
+
+    this.requestType = 'MAP';
   }
 
   ngOnInit() {}
+
+  requestAddMap(value: any): void {
+    value.requestType = this.requestType;
+    this.dialogRef.close(value);
+  }
 }

@@ -64,18 +64,28 @@ export class MapListComponent implements OnInit {
     this.mapService
       .addMap(value)
       .subscribe(result => {
-          this.snackbar.open('Successfully added Map');
+          this.snackbar.open("Successfully added Map", null, {
+            duration: 2000
+          });
           this.mapService.getMaps().subscribe(data => {
               this.mapsData = data;
               this.dataSource = new MatTableDataSource<Element>(this.mapsData);
               this.dataSource.paginator = this.mapPaginator;
               this.selection.clear();
             }, error => {
-              this.snackbar.open('An error occured in fetching list of maps');
+              this.snackbar.open(
+                "An error occured in fetching list of maps",
+                null,
+                {
+                  duration: 2000
+                }
+              );
               console.log(error);
             });
         }, error => {
-          this.snackbar.open('Map was not successfully added');
+          this.snackbar.open("Map was not successfully added", null, {
+            duration: 2000
+          });
           console.log(error);
         })
   }
@@ -86,7 +96,9 @@ export class MapListComponent implements OnInit {
           return { _id: map["_id"] };
         }))
       .subscribe(data => {
-          this.snackbar.open("Successfully deleted Map/s");
+          this.snackbar.open("Successfully deleted Map/s", null, {
+            duration: 2000
+          });
           this.mapService.getMaps().subscribe(data => {
               this.mapsData = data;
               this.dataSource = new MatTableDataSource<Element>(this.mapsData);
@@ -97,7 +109,9 @@ export class MapListComponent implements OnInit {
               console.log(error);
             });
         }, error => {
-          this.snackbar.open('an error occured')
+          this.snackbar.open("an error occured", null, {
+            duration: 2000
+          });
           console.log(error);
         });
   }

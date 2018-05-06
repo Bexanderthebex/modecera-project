@@ -16,6 +16,7 @@ import { OverlayPipe } from "./pipes/overlay.pipe";
 /* services */
 import { LayerService } from "./services/layer.service";
 import { MapService } from "./services/map.service";
+import { RequestService } from "./services/request.service";
 
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
@@ -26,6 +27,7 @@ import { MatMenuModule } from "@angular/material/menu";
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatDialogModule } from "@angular/material/dialog";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 import { AppRoutingModule } from './app-routing.module';
 import { RequestMapComponent } from './map/request-map/request-map.component';
@@ -40,7 +42,7 @@ import { RequestMapComponent } from './map/request-map/request-map.component';
     OverlayControlComponent,
     OverlayParentComponent,
     OverlayPipe,
-    RequestMapComponent,
+    RequestMapComponent
   ],
   imports: [
     BrowserModule,
@@ -54,11 +56,12 @@ import { RequestMapComponent } from './map/request-map/request-map.component';
     MatMenuModule,
     MatExpansionModule,
     MatDialogModule,
+    MatSnackBarModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [MapService, LayerService],
+  providers: [MapService, LayerService, RequestService],
   entryComponents: [RequestMapComponent],
   bootstrap: [AppComponent]
 })

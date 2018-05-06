@@ -60,17 +60,23 @@ export class LayerlistComponent implements OnInit {
     .subscribe(res => {
       console.log(res);
       if(res.error && res != null) {
-        this.snackbar.open(res.error.message);
+        this.snackbar.open(res.error.message, null, {
+          duration: 2000
+        });
       } else {
         this.layerService.getAllLayers().subscribe(data => {
             if(data.error) {
-              this.snackbar.open(data.error.message);
+              this.snackbar.open(data.error.message, null, {
+                duration: 2000
+              });
             } else {
               this.layersData = data;
               this.dataSource = new MatTableDataSource<Element>(this.layersData);
               this.dataSource.paginator = this.paginator;
               this.selection.clear();
-              this.snackbar.open('successfully added map');
+              this.snackbar.open('successfully added map', null, {
+                duration: 2000
+              });
             }
           });
       }
@@ -87,10 +93,12 @@ export class LayerlistComponent implements OnInit {
                 this.dataSource.paginator = this.paginator;
                 this.selection.clear()
               }, error => {
-                this.snackbar.open(error);
+                this.snackbar.open(error, null, {
+                  duration: 2000
+                });
               });
       }, error => {
-        this.snackbar.open(error);
+        this.snackbar.open(error, null, { duration: 2000 });
       });
   }
 
