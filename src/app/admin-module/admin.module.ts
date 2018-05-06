@@ -7,6 +7,8 @@ import { DashboardComponent } from "./dashboard/dashboard.component";
 import { LayerlistComponent } from "./layerlist/layerlist.component";
 import { UploadLayerComponent } from "./upload-layer/upload-layer.component";
 import { MapListComponent } from "./map-list/map-list.component"; 
+import { AddMapComponent } from "./add-map/add-map.component";
+import { RequestListComponent } from "./request-list/request-list.component";
 
 import { AdminRoutingModule } from "./admin-routing.module";
 
@@ -31,7 +33,8 @@ import { MatMenuModule } from "@angular/material/menu";
 
 import { MapService } from "../services/map.service";
 import { LayerService } from "../services/layer.service";
-import { AddMapComponent } from './add-map/add-map.component';
+import { RequestService } from "../services/request.service"; 
+
 
 @NgModule({
   imports: [
@@ -52,7 +55,7 @@ import { AddMapComponent } from './add-map/add-map.component';
     MatMenuModule,
     FormsModule,
     MatProgressBarModule,
-    MatButtonToggleModule, 
+    MatButtonToggleModule,
     ReactiveFormsModule
   ],
   declarations: [
@@ -60,9 +63,10 @@ import { AddMapComponent } from './add-map/add-map.component';
     LayerlistComponent,
     UploadLayerComponent,
     MapListComponent,
-    AddMapComponent
+    AddMapComponent,
+    RequestListComponent
   ],
   entryComponents: [UploadLayerComponent, AddMapComponent],
-  providers: [MapService, LayerService]
+  providers: [MapService, LayerService, RequestService]
 })
 export class AdminModule {}

@@ -18,6 +18,11 @@ export class RequestService {
                .catch(this.errorHandler);
   }
 
+  getAllRequest() {
+    return this.http.get("http://localhost:3000/api/requests")
+              .catch(this.errorHandler);
+  }
+
   errorHandler(error: HttpErrorResponse) {
     return Observable.throw(error.message || "Server Error");
   }

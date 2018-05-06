@@ -1,0 +1,50 @@
+<div style="overflow-y: auto; height: 80vh;">
+  <div class="example-header mdl-grid">
+    <div class="mdl-cell mdl-cell--1-col">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <mat-table #table *ngIf="requestsLoaded" [dataSource]="dataSource">
+
+    <ng-container matColumnDef="requester">
+      <mat-header-cell *matHeaderCellDef> Requester </mat-header-cell>
+      <mat-cell *matCellDef="let request"> {{request.requester_email_address}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="request">
+      <mat-header-cell *matHeaderCellDef> Request </mat-header-cell>
+      <mat-cell *matCellDef="let request"> {{request.request}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="request_type">
+      <mat-header-cell *matHeaderCellDef> Request Type </mat-header-cell>
+      <mat-cell *matCellDef="let request"> {{request.request_type}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="request_approved">
+      <mat-header-cell *matHeaderCellDef> Approval </mat-header-cell>
+      <mat-cell *matCellDef="let request"> {{request.request_approved}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="approve_request">
+      <mat-header-cell *matHeaderCellDef>Approve</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-icon-button>
+          <mat-icon class="mdl-color-text--teal-900">
+            beenhere
+          </mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columnDef"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnDef;"></mat-row>
+
+
+  </mat-table>
+  <mat-paginator #requestPaginator [pageSize]="5" [pageSizeOptions]="[5]" [showFirstLastButtons]="true">
+  </mat-paginator>
+</div>

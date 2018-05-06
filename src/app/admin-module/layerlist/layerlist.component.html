@@ -48,7 +48,7 @@
     
         <ng-container matColumnDef="name">
             <mat-header-cell *matHeaderCellDef> File name </mat-header-cell>
-            <mat-cell *matCellDef="let layer"> {{layer.name}} </mat-cell>
+            <mat-cell *matCellDef="let layer" (change)="changeHandler(layer)"> {{layer.name}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="labelGroup">
@@ -60,6 +60,15 @@
             <mat-header-cell *matHeaderCellDef> Link </mat-header-cell>
             <mat-cell *matCellDef="let layer"> {{layer.link}} </mat-cell>
         </ng-container>
+
+        <!-- <ng-container matColumnDef="editButton">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <button mat-icon-button (click)="changeHandler(row)">
+                    <mat-icon>mode_edit</mat-icon>
+                </button>
+            </mat-cell>
+        </ng-container> -->
     
         <mat-header-row *matHeaderRowDef="columnDef"></mat-header-row>
         <mat-row *matRowDef="let row; columns: columnDef;"></mat-row>

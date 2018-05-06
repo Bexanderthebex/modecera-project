@@ -102,6 +102,10 @@ export class LayerlistComponent implements OnInit {
       });
   }
 
+  changeHandler(layer: any) {
+    console.log(layer);
+  }
+
   /* dirty implementation */
   downloadHandler(): void {
     this.selection.selected.forEach( (layer) => {
