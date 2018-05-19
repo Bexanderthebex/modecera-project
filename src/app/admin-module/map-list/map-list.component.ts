@@ -104,18 +104,18 @@ export class MapListComponent implements OnInit, OnChanges {
           return { _id: map["_id"] };
         }))
       .subscribe(data => {
+          this.dataSource = new MatTableDataSource<Element>(this.dataSource._data._value.filter(map => {
+            for (var selectedMap in this.selection.selected) {
+              if (this.selection.selected[selectedMap] != map) {
+                return map;
+              }
+            }
+          }))
+          this.dataSource.paginator = this.mapPaginator;
+          this.selection.clear();
           this.snackbar.open("Successfully deleted Map/s", null, {
             duration: 2000
-          });
-          this.mapService.getMaps().subscribe(data => {
-              this.mapsData = data;
-              this.dataSource = new MatTableDataSource<Element>(this.mapsData);
-              this.dataSource.paginator = this.mapPaginator;
-              this.selection.clear();
-            }, error => {
-
-              console.log(error);
-            });
+          }); 
         }, error => {
           this.snackbar.open("an error occured", null, {
             duration: 2000

@@ -20,7 +20,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: "./layerlist.component.html",
   styleUrls: ["./layerlist.component.css"]
 })
-export class LayerlistComponent implements OnInit, OnChanges/* , AfterViewInit */ {
+export class LayerlistComponent implements OnInit, OnChanges {
   private layersLoaded: Boolean;
   private layersData: any;
   private columnDef: any;
@@ -53,18 +53,10 @@ export class LayerlistComponent implements OnInit, OnChanges/* , AfterViewInit *
   }
 
   ngOnChanges() {
-    console.log(this.layerRequest);
     if (this.layerRequest != null) {
       this.openUploadLayer()
     }
   }
-
-  // ngAfterViewInit() {
-  //   console.log(this.layerRequest);
-  //   if (this.layerRequest != null) {
-  //     this.openUploadLayer();
-  //   }
-  // }
 
   openUploadLayer(): void {
     let dialogRef = this.dialog.open(UploadLayerComponent, {
@@ -103,16 +95,16 @@ export class LayerlistComponent implements OnInit, OnChanges/* , AfterViewInit *
     this.layerService.deleteLayer(this.selection.selected.map(layer => {
         return { _id: layer["_id"], name: layer["name"]};
       })).subscribe( data => {
-            this.layerService.getAllLayers().subscribe(data => {
-                this.layersData = data;
-                this.dataSource = new MatTableDataSource<Element>(this.layersData);
-                this.dataSource.paginator = this.paginator;
-                this.selection.clear()
-              }, error => {
-                this.snackbar.open(error, null, {
-                  duration: 2000
-                });
-              });
+            this.dataSource = new MatTableDataSource<Element>(this.dataSource._data._value.filter(layer => {
+              for(var selectedLayer in this.selection.selected) {
+                if(this.selection.selected[selectedLayer] != layer){
+                  return layer;
+                }
+              }
+            }))
+            this.dataSource.paginator = this.paginator;
+            this.selection.clear();
+            this.snackbar.open("layer successfully deleted", null, {duration: 2000});
       }, error => {
         this.snackbar.open(error, null, { duration: 2000 });
       });
