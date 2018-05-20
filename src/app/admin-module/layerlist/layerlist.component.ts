@@ -95,15 +95,16 @@ export class LayerlistComponent implements OnInit, OnChanges {
     this.layerService.deleteLayer(this.selection.selected.map(layer => {
         return { _id: layer["_id"], name: layer["name"]};
       })).subscribe( data => {
-            this.dataSource = new MatTableDataSource<Element>(this.dataSource._data._value.filter(layer => {
-              for(var selectedLayer in this.selection.selected) {
-                if(this.selection.selected[selectedLayer] != layer){
-                  return layer;
-                }
-              }
-            }))
-            this.dataSource.paginator = this.paginator;
-            this.selection.clear();
+            this.layerService.getAllLayers().subscribe(data => {
+                this.layersData = data;
+                this.dataSource = new MatTableDataSource<Element>(this.layersData);
+                this.dataSource.paginator = this.paginator;
+                this.selection.clear()
+              }, error => {
+                this.snackbar.open(error, null, {
+                  duration: 2000
+                });
+              });
             this.snackbar.open("layer successfully deleted", null, {duration: 2000});
       }, error => {
         this.snackbar.open(error, null, { duration: 2000 });
