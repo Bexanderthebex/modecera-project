@@ -7,36 +7,71 @@
 </h2>
 
 <div [formGroup]="signup">
-    <form action="#">
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input" type="email" id="email" 
-                    [formControl]="signup.controls['email']">
-            <label class="mdl-textfield__label" for="email">Email</label>
-        </div>
-    </form>
+    
+    <div *ngIf="pageState == 0">
+        <form action="#">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="firstName" [formControl]="signup.controls['firstName']">
+                <label class="mdl-textfield__label" for="firstName">First Name</label>
+            </div>
+        </form>
 
-    <form action="#">
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input" type="password" id="password" 
-                    [formControl]="signup.controls['password']">
-            <label class="mdl-textfield__label" for="password">Password</label>
-        </div>
-    </form>
+        <form action="#">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="lastName" [formControl]="signup.controls['lastName']">
+                <label class="mdl-textfield__label" for="lastName">Last Name</label>
+            </div>
+        </form>
+    </div>
 
-    <form action="#">
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input" type="password" id="confirmPassword" 
-                    [formControl]="signup.controls['confirmPassword']">
-            <label class="mdl-textfield__label" for="confirmPassword">Confirm password</label>
-        </div>
-    </form>
+    <div *ngIf="pageState == 1">
+        <form action="#">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="email" id="email" [formControl]="signup.controls['email']">
+                <label class="mdl-textfield__label" for="email">Email</label>
+            </div>
+        </form>
+        
+        <form action="#">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="password" id="password" [formControl]="signup.controls['password']">
+                <label class="mdl-textfield__label" for="password">Password</label>
+            </div>
+        </form>
+        
+        <form action="#">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="password" id="confirmPassword" [formControl]="signup.controls['confirmPassword']">
+                <label class="mdl-textfield__label" for="confirmPassword">Confirm password</label>
+            </div>
+        </form>
+    </div>
+
 </div>
 
-<div style="margin-top: 30px;">
+<div style="margin-top: 30px;" *ngIf="pageState == 0">
+    <button mat-button class="mdl-color--teal-900 mdl-color-text--white" 
+            routerLink="/auth/login"
+            style="min-width: 150px; line-height: 45px; margin-right: 40px;">
+        Back
+    </button>
+    <button mat-button class="mdl-color--teal-900 mdl-color-text--white" 
+            (click)="pageState = 1" 
+            style="min-width: 150px; line-height: 45px;">
+        Next
+    </button>
+</div>
+
+<div style="margin-top: 30px;" *ngIf="pageState == 1">
+    <button mat-button class="mdl-color--teal-900 mdl-color-text--white"
+            (click)="pageState = 0"
+            style="min-width: 150px; line-height: 45px; margin-right: 40px;">
+        Back
+    </button>
     <button mat-button class="mdl-color--teal-900 mdl-color-text--white" 
             (click)="onSubmit(signup.value)" 
             (keyup.enter)="onSubmit(signup.value)"
-        style="min-width: 373px; line-height: 45px;">
+            style="min-width: 150px; line-height: 45px;">
         Sign up
     </button>
 </div>

@@ -13,16 +13,16 @@ export class LoginComponent implements OnInit {
   private loading: boolean;
 
   constructor(
-    private fb: FormBuilder, 
-    private userService: UserService, 
+    private fb: FormBuilder,
+    private userService: UserService,
     private router: Router
   ) {
     this.login = fb.group({
       'email': '',
       'password': ''
-    })
+    });
 
-    this.loading = false; 
+    this.loading = false;
   }
 
   ngOnInit() {
@@ -31,10 +31,10 @@ export class LoginComponent implements OnInit {
   onSubmit(value: any) {
     this.loading = true;
 
-    this.userService.login(value).subscribe( (data:any) => {
+    this.userService.login(value).subscribe( (data: any) => {
       this.router.navigate(['/admin/dashboard']);
     }, (error: Error) => {
       console.log(error);
-    })
+    });
   }
 }
